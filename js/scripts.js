@@ -35,7 +35,7 @@ var photoRepository = (function () {
     banner.classList.add('hideDataLoading');
   }
 
-  //fetch primary photo data (name, character url)
+  //'fetch' primary photo data (name, character url)
   // var API_KEY = '17795524-3cd93801424773114b97b5b02';
   // var URL = 'https://pixabay.com/api/?key="+API_KEY+"&q=landscape+monochrome&image_type=photo'
 
