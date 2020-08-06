@@ -3,7 +3,7 @@
 var photoRepository = (function () {
   var photoList = [];
   var apiUrl = 'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
-  var banner = document.querySelector('p');
+  var banner = $('.dataLoading');
   var modalContainer = document.querySelector('#modal-container');
 
   // essential functions to access data within IIFE
@@ -28,27 +28,36 @@ var photoRepository = (function () {
   }
 
   function showLoadingMessage(banner) {
-    banner.classList.remove('hideDataLoading');
+    $('.dataLoading')
+      .addClass('hideDataLoading');
   }
 
   function hideLoadingMessage(banner) {
-    banner.classList.add('hideDataLoading');
+    $('.dataLoading')
+      .addClass('hideDataLoading');
   }
 
-  //'fetch' primary photo data (name, character url)
-  // var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  // var URL = 'https://pixabay.com/api/?key="+API_KEY+"&q=landscape+monochrome&image_type=photo'
+  //'fetch' primary photo data (id, character url)
 
-    $.getJSON('https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo', function(data) {
-    if (parseInt(data.totalHits) > 0)
-      $.each(data.hits, function(i, hit){console.log(hit.id, hit.pageURL); });
-    else {
-      console.log('No hits');
-    }
+  function loadList() {
+    showLoadingMessage(banner)
+    $.getJSON(apiUrl, function(data) {
+      if (parseInt(data.totalHits) > 0)
+        $.each(data.hits, function(i, hit){
+          console.log(hit.id, hit.tags, hit.previewURL);
+          var photo = {
+            id: hit.id,
+            tags: hit.tags,
+            preview: hit.previewURL
+          }
+          add(photo);
+          hideLoadingMessage(banner);
+        });
+      else {
+        console.log('No hits');
+      }
     });
-
-
-
+  };
 
 
 /*  function loadList() {
@@ -89,23 +98,6 @@ var photoRepository = (function () {
       hideLoadingMessage(banner);
       console.error(e);
     });
-  } */
-
-  /*
-  function typeLoop(photo) {
-    var photoTypes = photo.types;
-    for (var i = 0; i < photoTypes.length; i++) {
-      console.log(photoTypes[i].type.name);
-      return (photoTypes[i].type.name);
-    };
-  }
-
-  function abilityLoop(photo) {
-    var photoAbilities = photo.abilities;
-    for (var i = 0; i < photoAbilities.length; i++) {
-      console.log(photoAbilities[i].ability.name);
-      return (photoAbilities[i].ability.name);
-    };
   } */
 
   /* function typeLoop(photo) {
