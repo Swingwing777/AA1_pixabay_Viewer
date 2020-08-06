@@ -1,30 +1,30 @@
 //  This is the main IIFE function containing all data //
 
-var pokemonRepository = (function () {
-  var pokemonList = [];
-  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+var photoRepository = (function () {
+  var photoList = [];
+  var apiUrl = 'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
   var banner = document.querySelector('p');
   var modalContainer = document.querySelector('#modal-container');
 
   // essential functions to access data within IIFE
-  function add(pokemon) {
-    pokemonList.push(pokemon);
+  function add(photo) {
+    photoList.push(photo);
   }
 
   function getAll() {
-    return pokemonList;
+    return photoList;
   }
 
-  // add Pokemon buttons
-  function addListItem(pokemon) {
-    var heroList = document.querySelector('.pokemon-list')
-    var heroItem = document.createElement('li');
+  // add Photo buttons
+  function addListItem(photo) {
+    var scapeList = document.querySelector('.photo-list')
+    var scapeItem = document.createElement('li');
     var button = document.createElement('button');
-    button.innerText = pokemon.name;
-    button.classList.add('pokemonButton')
+    button.innerText = photo.name;
+    button.classList.add('photoButton')
     heroItem.appendChild(button);
     heroList.appendChild(heroItem);
-    buttonListen(button, pokemon);
+    buttonListen(button, photo);
   }
 
   function showLoadingMessage(banner) {
@@ -35,27 +35,42 @@ var pokemonRepository = (function () {
     banner.classList.add('hideDataLoading');
   }
 
-  //fetch primary pokemmon data (name, character url)
-  function loadList() {
-    showLoadingMessage(banner);
-    return fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      json.results.forEach(function (item) {
-        var pokemon = {
-          name: item.name,
-          detailsUrl: item.url
-        };
-        add(pokemon);
-        hideLoadingMessage(banner);
-      });
-    }).catch(function (e) {
-      hideLoadingMessage(banner);
-      console.error(e);
-    })
-  }
+  //fetch primary photo data (name, character url)
+  // var API_KEY = '17795524-3cd93801424773114b97b5b02';
+  // var URL = 'https://pixabay.com/api/?key="+API_KEY+"&q=landscape+monochrome&image_type=photo'
 
-  //fetch additional pokemon details
+    $.getJSON('https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo', function(data) {
+    if (parseInt(data.totalHits) > 0)
+      $.each(data.hits, function(i, hit){console.log(hit.id, hit.pageURL); });
+    else {
+      console.log('No hits');
+    }
+    });
+
+
+
+
+
+/*  function loadList() {
+  showLoadingMessage(banner);
+  return fetch(apiUrl).then(function (response) {
+    return response.json();
+  }).then(function (json) {
+    json.results.forEach(function (item) {
+      var pokemon = {
+        name: item.name,
+        detailsUrl: item.url
+      };
+      add(pokemon);
+      hideLoadingMessage(banner);
+    });
+  }).catch(function (e) {
+    hideLoadingMessage(banner);
+    console.error(e);
+  })
+} */
+
+  /*//fetch additional photo details
   function loadDetails(item) {
     showLoadingMessage(banner);
     var url = item.detailsUrl;
@@ -63,7 +78,7 @@ var pokemonRepository = (function () {
       return response.json();
     }).then(function (details) {
 
-      // Add details to each Pokemon (aka item)
+      // Add details to each Photo (aka item)
       item.imageUrl = details.sprites.front_default;
       item.types = details.types;
       item.height = details.height;
@@ -74,68 +89,60 @@ var pokemonRepository = (function () {
       hideLoadingMessage(banner);
       console.error(e);
     });
-  }
+  } */
 
   /*
-  function typeLoop(pokemon) {
-    var pokemonTypes = pokemon.types;
-    for (var i = 0; i < pokemonTypes.length; i++) {
-      console.log(pokemonTypes[i].type.name);
-      return (pokemonTypes[i].type.name);
+  function typeLoop(photo) {
+    var photoTypes = photo.types;
+    for (var i = 0; i < photoTypes.length; i++) {
+      console.log(photoTypes[i].type.name);
+      return (photoTypes[i].type.name);
     };
   }
 
-  function abilityLoop(pokemon) {
-    var pokemonAbilities = pokemon.abilities;
-    for (var i = 0; i < pokemonAbilities.length; i++) {
-      console.log(pokemonAbilities[i].ability.name);
-      return (pokemonAbilities[i].ability.name);
+  function abilityLoop(photo) {
+    var photoAbilities = photo.abilities;
+    for (var i = 0; i < photoAbilities.length; i++) {
+      console.log(photoAbilities[i].ability.name);
+      return (photoAbilities[i].ability.name);
     };
   } */
 
-  function typeLoop(pokemon) {
-    var pokemonTypes = pokemon.types;
-    pokemonTypes.forEach(function(trait) {
+  /* function typeLoop(photo) {
+    var photoTypes = photo.types;
+    photoTypes.forEach(function(trait) {
       console.log(trait.type.name);
       return (trait.type.name);
     });
-  }
+  } */
 
-  function abilityLoop(pokemon) {
-    var pokemonAbilities = pokemon.abilities;
-    pokemonAbilities.forEach(function(trait) {
-      console.log(trait.ability.name);
-      return (trait.ability.name);
-    });
-  }
-
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      var pokemonAbilities = pokemon.abilities;
+  /* function showDetails(photo) {
+    loadDetails(photo).then(function () {
+      var photoAbilities = photo.abilities;
       showModal(
-        pokemon.imageUrl,
-        'Character: " ' + pokemon.name + ' "',
+        photo.imageUrl,
+        'Character: " ' + photo.name + ' "',
 
-        // Fallback: replace | 'Primary Type: ' + pokemon.types[0].type.name,
-        'Type(s): ' + (typeLoop(pokemon)),
+        // Fallback: replace | 'Primary Type: ' + photo.types[0].type.name,
+        'Type(s): ' + (typeLoop(photo)),
 
-        // Fallback: replace | 'Primary Ability: ' + pokemon.abilities[0].ability.name,
-        'Ability or Abilities: ' + (abilityLoop(pokemon)),
-        'Height: ' + pokemon.height + ' metres',
-        'Healthpoints: ' + pokemon.healthPoint
+        // Fallback: replace | 'Primary Ability: ' + photo.abilities[0].ability.name,
+        'Ability or Abilities: ' + (abilityLoop(photo)),
+        'Height: ' + photo.height + ' metres',
+        'Healthpoints: ' + photo.healthPoint
       )
-      console.log(pokemon);
+      console.log(photo);
     });
-  }
+  } */
 
   //creates event listener for each button
-  function buttonListen(button, pokemon) {
+  function buttonListen(button, photo) {
     button.addEventListener('click', function (event) {
-      showDetails(pokemon);
+      showDetails(photo);
     });
   }
 
-  // --- Modal Functions within Pokemon Repository --------------
+  // --- Modal Functions within photoRepository --------------
 
   function showModal(img, title, types, abilities, height, healthPoint) {
 
@@ -153,28 +160,28 @@ var pokemonRepository = (function () {
 
     //create image for modal
     var imgElement = document.createElement('img');
-    imgElement.classList.add('pokemonImage');
+    imgElement.classList.add('photoImage');
     imgElement.src = img;
 
     //create content element as list
     var listElement = document.createElement('ul');
-    listElement.classList.add('pokemonDetail')
+    listElement.classList.add('photoDetail')
     listElement.innerText = 'Statistics: ';
 
     var listElement__Item1 = document.createElement('li');
-    listElement__Item1.classList.add('pokemonList__Type')
+    listElement__Item1.classList.add('photoList__Type')
     listElement__Item1.innerText = types;
 
     var listElement__Item2 = document.createElement('li');
-    listElement__Item2.classList.add('pokemonList__Abilities')
+    listElement__Item2.classList.add('photoList__Abilities')
     listElement__Item2.innerText = abilities;
 
     var listElement__Item3 = document.createElement('li');
-    listElement__Item3.classList.add('pokemonList__Height')
+    listElement__Item3.classList.add('photoList__Height')
     listElement__Item3.innerText = height;
 
     var listElement__Item4 = document.createElement('li');
-    listElement__Item4.classList.add('pokemonList__Health')
+    listElement__Item4.classList.add('photonList__Health')
     listElement__Item4.innerText = healthPoint;
 
     //create close button
@@ -224,46 +231,25 @@ var pokemonRepository = (function () {
 
 // -------------- End of modal   --------------------
 
-  // Return statement of pokemonRepository IIFE
+  // Return statement of photoRepository IIFE
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails
+    // loadDetails: loadDetails
   };
-})();   // ----------------- END OF pokemonRepositoryIIFE -----------------
+})();   // ----------------- END OF photoRepositoryIIFE -----------------
 
 // ------------- Functions external to IIFE -----------------------
 
-pokemonRepository.loadList().then(function() {            // this calls the data from API and then calls getAll
+photoRepository.loadList().then(function() {            // this calls the data from API and then calls getAll
   // Now the data is loaded!
-  pokemonRepository.getAll().forEach(function(pokemon){   //  getAll returns Pokemon, followed by forEach loop, add to pokemonList array
-    pokemonRepository.addListItem(pokemon);
+  photoRepository.getAll().forEach(function(photo){   //  getAll returns photo, followed by forEach loop, add to photoList array
+    photoRepository.addListItem(photo);
   });
 });
 
-function objectEquals(arr1){
-//template array of keys
-let arr2 = ["name", "type", "ability", "height", "healthPoint"];
-  //check if both are arrays and have equal length
-  if (Array.isArray(arr1) && Array.isArray(arr2) && arr1.length == arr2.length){
-    let sortedArr1 = arr1.sort()
-    let sortedArr2 = arr2.sort()
-    return sortedArr1.every((val, index) => val == sortedArr2[index]);
-  } else{
-    return "cannot compare these";
-  }
-}
 
-function checkChar(charDetail) {          // adds to pokemonList2.
-  var charKeys = Object.keys(charDetail);
-  if (objectEquals(charKeys)) {
-    pokemonRepository.add(charDetail);
-  } else {
-    alert('Check List "New Character" input format');
-    console.log(charkeys);
-  }
-}
 
 // -----------------Experiment --------------
