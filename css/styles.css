@@ -1,0 +1,324 @@
+:root {
+}
+
+* {
+  /* This ensures all element widths include border and padding width */
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1500px;
+  color: black;
+  background-color: #7f868f;
+  background-image: url(../img/Nymphs_01bl_50p.png);
+
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+header {
+  background-color: #212a36;
+  background-image: url(../img/Him_03.png);
+  background-size: cover;
+  width: 1500px;
+  height: 400px;
+}
+
+h1,
+h2 {
+  font-family: 'Indie Flower', cursive;
+}
+
+strong {
+  color: red;
+  font-family: 'Indie Flower', cursive;
+  text-shadow: 1px 1px 1px #000;
+}
+
+button {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background-color: red;
+  margin: 20px;
+  width: 120px;
+  color: white;
+  filter: brightness(1);
+  transition: all 1s ease;
+  box-shadow: 2px 2px 5px #000;
+}
+
+button:hover,
+button:focus {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+
+hr {
+  border: 0;
+  margin: 0;
+  height: 7px;
+  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
+  max-width: 1500px;
+}
+
+ul {
+  list-style: none;
+}
+
+/* -- Flex styling for header --------- */
+
+.page-header {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  padding: 20px;
+}
+
+.page-header__item {
+  flex: 0 1 400px;
+}
+
+.page-header__item:last-child {
+  flex-grow: 1;
+  max-width: 700px;
+  margin-right: 20px;
+}
+
+.strong1 {
+  font-family: 'Indie Flower', cursive;
+  color: blue;
+  font-size: 24px;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.newCharacter {
+  color: green;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.dataLoading {
+  filter: opacity(1);
+  height: auto;
+
+  /* this displays the message on top */
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -4.5em;
+  width: 10em;
+  font-family: 'Oswald', sans-serif;
+  font-variant: normal;
+  font-size: 36px;
+  text-align: center;
+  justify-content: space-around;
+  padding-top: 0.2rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #00193b;
+  color: white;
+  box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+}
+
+.hideDataLoading {
+  filter: opacity(0);
+  height: auto;
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -4.5em;
+  width: 10em;
+  font-family: 'Oswald', sans-serif;
+  font-variant: normal;
+  font-size: 36px;
+  text-align: center;
+  justify-content: space-around;
+  padding-top: 0.2rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #00193b;
+  color: white;
+  transition: filter 1s ease;
+  box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+}
+
+/* -- ID styling -------------- */
+
+#selectYour {
+  font-family: 'Indie Flower', cursive;
+  color: red;
+  font-size: 30px;
+}
+
+#myLogo {
+  margin-left: 20px;
+  width: 200px;
+  height: 50px;
+  box-shadow: 2px 2px 4px #000;
+}
+
+/*  ------- CSS grid styling -------------- */
+
+/* grids go here */
+.pokemonButton {               /* grid fallback */
+  display: inline-block;
+  width: 33%;
+}
+
+.pokemon-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.pokemonButton {     /* buttons are grid items as well */
+  display: grid;
+  font-family: 'Oswald', sans-serif;
+  font-variant: small-caps;
+  font-size: 30px;
+  text-align: center;
+  justify-content: space-around;
+  border-style: solid;
+  padding-top: 0.4rem;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #eb0202;
+  height: 100px;
+  width: 280px;
+  margin: 0 auto;
+  color: #fff;
+  filter: brightness(1);
+  transition: all 1s ease;
+  box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+}
+
+.pokemonButton:hover,
+.pokemonButton:focus {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+
+/* ------------ Modal Styling --------------------------- */
+
+#modal-container {
+  display: none;
+}
+
+#modal-container.is-visible {
+  display: block;
+
+  /* the modal container is the wider overlay, eg transparent grey to cover rest of screen */
+  /*previously | display: grid and text-align: center.  This centers the container
+  display: grid;
+  text-align: center; */
+  position: fixed;
+  padding: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  /* to show it above other content */
+  z-index: 999;
+
+  /* to allow scrolling if the screen is not high enough */
+  overflow: auto;
+}
+
+.modal {
+  margin: auto;
+  display: grid;
+  box-sizing: border-box;
+  background-color: #ff0;
+  background-image: linear-gradient(to bottom, rgba(240, 0, 12, 0.3), rgba(240, 0, 12, 0.1));
+  padding: 15px;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 2px 2px 5px #620;
+  border-radius: 8px;
+  transition: all 1s ease;
+}
+
+.modal-close {
+  float: right;
+  border: 1px;
+  background: #f07c00;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 2px 2px 3px #620;
+}
+
+.modal h1 {
+  margin-top: 10%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+}
+
+.pokemonImage {
+  display: block;
+  margin: 0 auto;
+}
+
+.modal ul {
+  float: left;
+  list-style: none;
+  margin-top: 0px;
+}
+
+#show-modal {
+  visibility: hidden;
+}
+
+/* --------------- media queries required ---------------- */
+
+@media all and (min-width: 500px) and (max-width: 800px) {
+  .pokemon-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pokemonButton {
+    height: 50px;
+    width: 200px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  body {
+    padding: 10px;
+  }
+
+  .pokemon-list {
+    grid-template-columns: 1fr;
+  }
+
+  .pokemonButton {
+    font-size: 24px;
+    margin: auto;
+    height: 50px;
+    width: 200px;
+  }
+}
+
+/*-------------------Experiment ------------------*/
