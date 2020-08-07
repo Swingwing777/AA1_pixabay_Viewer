@@ -10,7 +10,8 @@ body {
   max-width: 1500px;
   color: black;
   background-color: #7f868f;
-  background-image: url(../img/Nymphs_01bl_50p.png);
+  background-image: url(../img/Rome_1.png), url(../img/Frankfurt_1_75.png), url(../img/Nymphs_1_75.png);
+
 
   font-family: 'Raleway', sans-serif;
   font-size: 20px;
@@ -22,6 +23,7 @@ body {
 header {
   background-color: #212a36;
   background-image: url(../img/Him_03.png);
+  box-shadow: 3px 3px 5px #000;
   background-size: cover;
   width: 1500px;
   height: 400px;
@@ -30,6 +32,8 @@ header {
 h1,
 h2 {
   font-family: 'Indie Flower', cursive;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
 }
 
 strong {
@@ -96,11 +100,6 @@ ul {
   text-shadow: 1px 1px 1px #fff;
 }
 
-.newCharacter {
-  color: green;
-  text-shadow: 1px 1px 1px #000;
-}
-
 .dataLoading {
   filter: opacity(1);
   height: auto;
@@ -160,12 +159,6 @@ ul {
 
 /* -- ID styling -------------- */
 
-#selectYour {
-  font-family: 'Indie Flower', cursive;
-  color: red;
-  font-size: 30px;
-}
-
 #myLogo {
   margin-left: 20px;
   width: 200px;
@@ -176,22 +169,21 @@ ul {
 /*  ------- CSS grid styling -------------- */
 
 /* grids go here */
-.pokemonButton {               /* grid fallback */
+.photoButton {               /* grid fallback */
   display: inline-block;
   width: 33%;
 }
 
-.pokemon-list {
+.photo-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
 }
 
-.pokemonButton {     /* buttons are grid items as well */
+.photoButton {     /* buttons are grid items as well */
   display: grid;
   font-family: 'Oswald', sans-serif;
-  font-variant: small-caps;
-  font-size: 30px;
+  font-size: 18px;
   text-align: center;
   justify-content: space-around;
   border-style: solid;
@@ -199,20 +191,27 @@ ul {
   border-width: 1px;
   border-color: black;
   border-radius: 5px;
-  background: #eb0202;
-  height: 100px;
+  background: #00193b;
+  background-image: url(p);
+  height: 120px;
   width: 280px;
   margin: 0 auto;
   color: #fff;
   filter: brightness(1);
   transition: all 1s ease;
+  object-fit: scale-down;
   box-shadow:
     2px 3px 3px #fff inset,
     2px 2px 5px #000;
 }
 
-.pokemonButton:hover,
-.pokemonButton:focus {
+.thumb {
+  object-fit: scale-down;
+
+}
+
+.photoButton:hover,
+.photoButton:focus {
   cursor: pointer;
   filter: brightness(0.8);
 }
@@ -227,9 +226,6 @@ ul {
   display: block;
 
   /* the modal container is the wider overlay, eg transparent grey to cover rest of screen */
-  /*previously | display: grid and text-align: center.  This centers the container
-  display: grid;
-  text-align: center; */
   position: fixed;
   padding: 20px;
   box-sizing: border-box;
@@ -294,11 +290,11 @@ ul {
 /* --------------- media queries required ---------------- */
 
 @media all and (min-width: 500px) and (max-width: 800px) {
-  .pokemon-list {
+  .photoList {
     grid-template-columns: 1fr 1fr;
   }
 
-  .pokemonButton {
+  .photoButton {
     height: 50px;
     width: 200px;
   }
@@ -309,11 +305,11 @@ ul {
     padding: 10px;
   }
 
-  .pokemon-list {
+  .photoList {
     grid-template-columns: 1fr;
   }
 
-  .pokemonButton {
+  .photoButton {
     font-size: 24px;
     margin: auto;
     height: 50px;

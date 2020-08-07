@@ -1,131 +1,97 @@
 //  This is the main IIFE function containing all data //
 
 var photoRepository = (function () {
-  var photoList = [];
+  var photoAlbum = [];
   var apiUrl = 'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
-  var banner = $('.dataLoading');
+  var banner = document.querySelector('.dataLoading');
   var modalContainer = document.querySelector('#modal-container');
 
   // essential functions to access data within IIFE
   function add(photo) {
-    photoList.push(photo);
+    photoAlbum.push(photo);
   }
 
   function getAll() {
-    return photoList;
+    return photoAlbum;
   }
 
   // add Photo buttons
   function addListItem(photo) {
-    var scapeList = document.querySelector('.photo-list')
-    var scapeItem = document.createElement('li');
+    var photoList = document.querySelector('.photo-list')
+    var photoItem = document.createElement('li');
     var button = document.createElement('button');
-    button.innerText = photo.name;
-    button.classList.add('photoButton')
-    heroItem.appendChild(button);
-    heroList.appendChild(heroItem);
+    var thumbNail = document.createElement('img');
+    thumbNail.src = photo.preview;
+    thumbNail.classList.add('thumb');
+    button.innerText = 'Pixabay Photo ID: ' + photo.pixID;
+    button.classList.add('photoButton');
+    button.appendChild(thumbNail);
+    photoItem.appendChild(button);
+    photoList.appendChild(photoItem);
     buttonListen(button, photo);
   }
 
   function showLoadingMessage(banner) {
-    $('.dataLoading')
-      .addClass('hideDataLoading');
+    banner.classList.remove('hideDataLoading');
   }
 
   function hideLoadingMessage(banner) {
-    $('.dataLoading')
-      .addClass('hideDataLoading');
+    banner.classList.add('hideDataLoading');
   }
 
-  //'fetch' primary photo data (id, character url)
-
+  ///fetch photo data
   function loadList() {
-    showLoadingMessage(banner)
-    $.getJSON(apiUrl, function(data) {
-      if (parseInt(data.totalHits) > 0)
-        $.each(data.hits, function(i, hit){
-          console.log(hit.id, hit.tags, hit.previewURL);
-          var photo = {
-            id: hit.id,
-            tags: hit.tags,
-            preview: hit.previewURL
-          }
-          add(photo);
-          hideLoadingMessage(banner);
-        });
-      else {
-        console.log('No hits');
-      }
-    });
-  };
-
-
-/*  function loadList() {
-  showLoadingMessage(banner);
-  return fetch(apiUrl).then(function (response) {
-    return response.json();
-  }).then(function (json) {
-    json.results.forEach(function (item) {
-      var pokemon = {
-        name: item.name,
-        detailsUrl: item.url
-      };
-      add(pokemon);
-      hideLoadingMessage(banner);
-    });
-  }).catch(function (e) {
-    hideLoadingMessage(banner);
-    console.error(e);
-  })
-} */
-
-  /*//fetch additional photo details
-  function loadDetails(item) {
     showLoadingMessage(banner);
-    var url = item.detailsUrl;
-    return fetch(url).then(function (response) {
+    return fetch(apiUrl).then(function (response) {
       return response.json();
-    }).then(function (details) {
-
-      // Add details to each Photo (aka item)
-      item.imageUrl = details.sprites.front_default;
-      item.types = details.types;
-      item.height = details.height;
-      item.abilities = details.abilities;
-      item.healthPoint = details.stats[0].base_stat;
-      hideLoadingMessage(banner);
+    }).then(function (json) {
+      json.hits.forEach(function (hit) {
+        console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
+        var photo = {
+          pixID: hit.id,
+          tags: hit.tags,
+          preview: hit.previewURL,
+          webSize: hit.webformatURL,
+          image: hit.largeImageURL,
+          pageURL: hit.pageURL
+        };
+        add(photo);
+        hideLoadingMessage(banner);
+      });
     }).catch(function (e) {
       hideLoadingMessage(banner);
       console.error(e);
-    });
-  } */
+    })
+  }
 
-  /* function typeLoop(photo) {
-    var photoTypes = photo.types;
-    photoTypes.forEach(function(trait) {
-      console.log(trait.type.name);
-      return (trait.type.name);
-    });
-  } */
+/*  function loadList() {
+  showLoadingMessage(banner);
+  jQuery.getJSON(apiUrl, function(data) {
+    if (parseInt(data.totalHits) > 0)
+    jQuery.each(data.hits, function(i, hit){
+      console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
+      var photo = {
+        id: hit.id,
+        tags: hit.tags,
+        preview: hit.previewURL,
+        webSize: hit.webformatURL,
+        image: hit.largeImageURL,
+        pageURL: hit.pageURL
+      };
+      add(photo);
+      hideLoadingMessage(banner);
+    })
+    else {
+      console.log('No hits');
+    }
+  })
+};*/
 
-  /* function showDetails(photo) {
-    loadDetails(photo).then(function () {
-      var photoAbilities = photo.abilities;
-      showModal(
-        photo.imageUrl,
-        'Character: " ' + photo.name + ' "',
-
-        // Fallback: replace | 'Primary Type: ' + photo.types[0].type.name,
-        'Type(s): ' + (typeLoop(photo)),
-
-        // Fallback: replace | 'Primary Ability: ' + photo.abilities[0].ability.name,
-        'Ability or Abilities: ' + (abilityLoop(photo)),
-        'Height: ' + photo.height + ' metres',
-        'Healthpoints: ' + photo.healthPoint
-      )
-      console.log(photo);
-    });
-  } */
+  function showDetails(photo) {
+    showLoadingMessage(banner);
+    showModal(photo.image, photo.tags, photo.pixID, photo.webSize, photo.pageURL);
+    hideLoadingMessage(banner);
+  }
 
   //creates event listener for each button
   function buttonListen(button, photo) {
@@ -134,9 +100,9 @@ var photoRepository = (function () {
     });
   }
 
-  // --- Modal Functions within photoRepository --------------
+  // --- Modal Functions within Photo Repository --------------
 
-  function showModal(img, title, types, abilities, height, healthPoint) {
+  function showModal(img, tags, pixID, large, photoPage) {
 
     // Clear the template modal of content, then rebuild as desired
     modalContainer.innerHTML = '';
@@ -147,7 +113,7 @@ var photoRepository = (function () {
 
     //create title element
     var titleElement = document.createElement('h1');
-    titleElement.innerText = title;
+    titleElement.innerText = tags;
 
 
     //create image for modal
@@ -158,23 +124,19 @@ var photoRepository = (function () {
     //create content element as list
     var listElement = document.createElement('ul');
     listElement.classList.add('photoDetail')
-    listElement.innerText = 'Statistics: ';
+    listElement.innerText = 'Image Details: ';
 
     var listElement__Item1 = document.createElement('li');
-    listElement__Item1.classList.add('photoList__Type')
-    listElement__Item1.innerText = types;
+    listElement__Item1.classList.add('photoID')
+    listElement__Item1.innerText = pixID;
 
     var listElement__Item2 = document.createElement('li');
-    listElement__Item2.classList.add('photoList__Abilities')
-    listElement__Item2.innerText = abilities;
+    listElement__Item2.classList.add('photoTags')
+    listElement__Item2.innerText = large;
 
     var listElement__Item3 = document.createElement('li');
-    listElement__Item3.classList.add('photoList__Height')
-    listElement__Item3.innerText = height;
-
-    var listElement__Item4 = document.createElement('li');
-    listElement__Item4.classList.add('photonList__Health')
-    listElement__Item4.innerText = healthPoint;
+    listElement__Item3.classList.add('photoPage')
+    listElement__Item3.innerText = photoPage;
 
     //create close button
     var closeButtonElement = document.createElement('button');
@@ -185,12 +147,13 @@ var photoRepository = (function () {
     listElement.appendChild(listElement__Item1);
     listElement.appendChild(listElement__Item2);
     listElement.appendChild(listElement__Item3);
-    listElement.appendChild(listElement__Item4);
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(listElement);
     modal.appendChild(imgElement);
     modalContainer.appendChild(modal);
+
+    hideLoadingMessage(banner);
 
     //focus closeButton so that user can simply press Enter
     closeButtonElement.focus();
@@ -229,7 +192,6 @@ var photoRepository = (function () {
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
-    // loadDetails: loadDetails
   };
 })();   // ----------------- END OF photoRepositoryIIFE -----------------
 
@@ -237,11 +199,9 @@ var photoRepository = (function () {
 
 photoRepository.loadList().then(function() {            // this calls the data from API and then calls getAll
   // Now the data is loaded!
-  photoRepository.getAll().forEach(function(photo){   //  getAll returns photo, followed by forEach loop, add to photoList array
+  photoRepository.getAll().forEach(function(photo){   //  getAll returns Photo, followed by forEach loop, add to pokemonList array
     photoRepository.addListItem(photo);
   });
 });
-
-
 
 // -----------------Experiment --------------
