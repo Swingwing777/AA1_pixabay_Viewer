@@ -6,6 +6,7 @@ var photoRepository = (function () {
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
+
   // essential functions to access data within IIFE
   function add(photo) {
     photoAlbum.push(photo);
@@ -15,18 +16,18 @@ var photoRepository = (function () {
     return photoAlbum;
   }
 
- // add Photo buttons
+  // add Photo buttons
 
-function addListItem(photo) {
-  var photoList = $('.photo-list');
-  var photoItem = $('<li></li>');
-  var button = $('<button class="photoButton">Pixabay Photo ID + photo.pixID</button>');
-  var thumbNail = $('<img class="thumb" src=photo.preview>');
-  button.append(thumbNail);
-  photoItem.append(button);
-  photoList.append(photoItem);
-  buttonListen(button, photo);
-}
+  function addListItem(photo) {
+    var photoList = $('.photo-list');
+    var photoItem = $('<li></li>');
+    var button = $('<button class="photoButton">Pixabay Photo ID + photo.pixID</button>');
+    var thumbNail = $('<img class="thumb" src=photo.preview>');
+    button.append(thumbNail);
+    photoItem.append(button);
+    photoList.append(photoItem);
+    buttonListen(button, photo);
+  }
 
   function showLoadingMessage(banner) {
     banner.removeClass('hideDataLoading');
@@ -36,16 +37,43 @@ function addListItem(photo) {
     banner.addClass('hideDataLoading');
   }
 
- //fetch photo data
- function loadList() {
+  //fetch photo data
+
+  //fetch photo data - conventional JavaScript
+    function loadList() {
+     showLoadingMessage(banner);
+     return fetch(apiUrl).then(function (response) {
+       return response.json();
+     }).then(function (json) {
+       json.hits.forEach(function (hit) {
+         console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
+         var photo = {
+           pixID: hit.id,
+           tags: hit.tags,
+           preview: hit.previewURL,
+           webSize: hit.webformatURL,
+           image: hit.largeImageURL,
+           pageURL: hit.pageURL
+         };
+         add(photo);
+         hideLoadingMessage(banner);
+       });
+     }).catch(function (e) {
+       hideLoadingMessage(banner);
+       console.error(e);
+     })
+   }
+
+  /*function loadList(photo) {
     showLoadingMessage(banner);
-    return fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      json.hits.forEach(function (hit) {
+    $.ajax(apiUrl, {
+      dataType: 'json'
+    }).then(function (data){
+      if (parseInt(data.totalHits) > 0)
+      $.each(data.hits, function(i, hit){
         console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
         var photo = {
-          pixID: hit.id,
+          id: hit.id,
           tags: hit.tags,
           preview: hit.previewURL,
           webSize: hit.webformatURL,
@@ -53,36 +81,15 @@ function addListItem(photo) {
           pageURL: hit.pageURL
         };
         add(photo);
+        //  hideLoadingMessage(banner);
+      })
+      else {
         hideLoadingMessage(banner);
-      });
-    }).catch(function (e) {
-      hideLoadingMessage(banner);
-      console.error(e);
-    })
-  }
-
-/*function loadList(photo) {
-  showLoadingMessage(banner);
-  jQuery.getJSON(apiUrl, function(data) {
-    if (parseInt(data.totalHits) > 0)
-    jQuery.each(data.hits, function(i, hit){
-      //console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
-      var photo = {
-        id: hit.id,
-        tags: hit.tags,
-        preview: hit.previewURL,
-        webSize: hit.webformatURL,
-        image: hit.largeImageURL,
-        pageURL: hit.pageURL
+        console.log('No hits');
       };
-      add(photo);
-      hideLoadingMessage(banner);
     })
-    else {
-      console.log('No hits');
-    }
-  })
-}; */
+  }*/
+
 
   function showDetails(photo) {
     showLoadingMessage(banner);
@@ -90,81 +97,55 @@ function addListItem(photo) {
     hideLoadingMessage(banner);
   }
 
-  //creates event listener for each button
+
+//creates event listener for each button
+
   function buttonListen(button, photo) {
-    button.on('click', function (event) {
-      showDetails(photo);
+    $('modalContainer').on("click", 'button', function(e) {
+      button.on('click', function (event) {
+        showDetails(photo);
+      });
     });
-  }
+  };
 
   // --- Modal Functions within Photo Repository --------------
 
   function showModal(img, tags, pixID, large, photoPage) {
 
-    // Clear the template modal of content, then rebuild as desired
     modalContainer.innerHTML = '';
-
-    //create modal
-    var modal = document.createElement('div');
-    modal.classList.add('modal');
-
-    //create title element
-    var titleElement = document.createElement('h1');
-    titleElement.innerText = tags;
-
-
-    //create image for modal
-    var imgElement = document.createElement('img');
-    imgElement.classList.add('photoImage');
-    imgElement.src = img;
-
-    //create content element as list
-    var listElement = document.createElement('ul');
-    listElement.classList.add('photoDetail')
-    listElement.innerText = 'Image Details: ';
-
-    var listElement__Item1 = document.createElement('li');
-    listElement__Item1.classList.add('photoID')
-    listElement__Item1.innerText = pixID;
-
-    var listElement__Item2 = document.createElement('li');
-    listElement__Item2.classList.add('photoTags')
-    listElement__Item2.innerText = large;
-
-    var listElement__Item3 = document.createElement('li');
-    listElement__Item3.classList.add('photoPage')
-    listElement__Item3.innerText = photoPage;
+    var modal = $('<div class="modal"></div>');
+    var imgElement = $('<img class="photoImage" alt="thumbnail" src = img>');
+    var titleElement = $('<h1 class="modalTitle">tags</div>');
+    var listElement = $('<ul class="photoDetail"></ul>');
+    var listElement__Item1 = $('<li class="photoID">pixID</li>');
+    var listElement__Item2 = $('<li class="photoTags">large</li>');
+    var listElement__Item3 = $('<li class="photoPage">photoPage"</li>');
 
     //create close button
-    var closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', hideModal);
+    var closeButtonElement = $('<button class="modal-close">Close</button>');
+    $(closeButtonElement.on('click', hideModal));
 
-    listElement.appendChild(listElement__Item1);
-    listElement.appendChild(listElement__Item2);
-    listElement.appendChild(listElement__Item3);
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(listElement);
-    modal.appendChild(imgElement);
-    modalContainer.addClass(modal);
-
-    hideLoadingMessage(banner);
+    $('listElement')
+    .append(listElement__Item1)
+    .append(listElement__Item2)
+    .append(listElement__Item3);
+    $('modal')
+    .append(titleElement)
+    .append(closeButtonElement)
+    .append(listElement)
+    .append(imgElement);
+    $('modalContainer').append(modal);
 
     //focus closeButton so that user can simply press Enter
     closeButtonElement.focus();
 
-    modalContainer.addClass('is-visible');
+    $('modalContainer').addClass('is-visible');
   }
+
 
   function hideModal() {
     modalContainer.removeClass('is-visible');
   }
-
-/* document.querySelector('#show-modal').addEventListener('click', () => {
-    showModal('Modal Title', 'This is the modal content' );
-  });  */
 
   //arrow function – Esc to close modal
   window.addEventListener('keydown', (e) => {
@@ -183,7 +164,7 @@ function addListItem(photo) {
 
 // -------------- End of modal   --------------------
 
-  // Return statement of photoRepository IIFE
+// Return statement of photoRepository IIFE
   return {
     add: add,
     getAll: getAll,
@@ -194,7 +175,7 @@ function addListItem(photo) {
 
 // ------------- Functions external to IIFE -----------------------
 
-photoRepository.loadList().then(function() {            // this calls the data from API and then calls getAll
+photoRepository.loadList().then(function(photo) {            // this calls the data from API and then calls getAll
   photoRepository.getAll().forEach(function(photo){     //  getAll returns photo, followed by forEach loop, add to photoList array
     photoRepository.addListItem(photo);
   });
