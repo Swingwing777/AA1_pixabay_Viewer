@@ -55,7 +55,7 @@ var photoRepository = (function () {
       $.each(data.hits, function(i, hit){
         console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL)
         var photo = {
-          id: hit.id,
+          pixID: hit.id,
           tags: hit.tags,
           preview: hit.previewURL,
           webSize: hit.webformatURL,

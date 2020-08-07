@@ -39,7 +39,7 @@ var photoRepository = (function () {
 
   //fetch photo data
 
-  //fetch photo data - conventional JavaScript
+/*  //fetch photo data - conventional JavaScript
     function loadList() {
      showLoadingMessage(banner);
      return fetch(apiUrl).then(function (response) {
@@ -62,9 +62,9 @@ var photoRepository = (function () {
        hideLoadingMessage(banner);
        console.error(e);
      })
-   }
+   }*/
 
-  /*function loadList(photo) {
+  function loadList(photo) {
     showLoadingMessage(banner);
     $.ajax(apiUrl, {
       dataType: 'json'
@@ -88,7 +88,7 @@ var photoRepository = (function () {
         console.log('No hits');
       };
     })
-  }*/
+  }
 
 
   function showDetails(photo) {
