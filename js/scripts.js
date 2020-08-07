@@ -39,7 +39,7 @@ var photoRepository = (function () {
 
   //fetch photo data
 
-/*  //fetch photo data - conventional JavaScript
+  //fetch photo data - conventional JavaScript
     function loadList() {
      showLoadingMessage(banner);
      return fetch(apiUrl).then(function (response) {
@@ -47,6 +47,7 @@ var photoRepository = (function () {
      }).then(function (json) {
        json.hits.forEach(function (hit) {
          console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
+         console.log(json);
          var photo = {
            pixID: hit.id,
            tags: hit.tags,
@@ -62,9 +63,10 @@ var photoRepository = (function () {
        hideLoadingMessage(banner);
        console.error(e);
      })
-   }*/
+   }
 
-  function loadList(photo) {
+  // Ajax function - jQuery
+  /*function loadList(photo) {
     showLoadingMessage(banner);
     $.ajax(apiUrl, {
       dataType: 'json'
@@ -73,7 +75,7 @@ var photoRepository = (function () {
       $.each(data.hits, function(i, hit){
         console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
         var photo = {
-          id: hit.id,
+          pixID: hit.id,
           tags: hit.tags,
           preview: hit.previewURL,
           webSize: hit.webformatURL,
@@ -88,7 +90,7 @@ var photoRepository = (function () {
         console.log('No hits');
       };
     })
-  }
+  }*/
 
 
   function showDetails(photo) {
