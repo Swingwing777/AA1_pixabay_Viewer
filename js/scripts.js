@@ -3,8 +3,8 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var apiUrl = 'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
-  var banner = document.querySelector('.dataLoading');
-  var modalContainer = document.querySelector('#modal-container');
+  var banner = $('.dataLoading');
+  var modalContainer = $('#modal-container');
 
   // essential functions to access data within IIFE
   function add(photo) {
@@ -15,32 +15,29 @@ var photoRepository = (function () {
     return photoAlbum;
   }
 
-  // add Photo buttons
-  function addListItem(photo) {
-    var photoList = document.querySelector('.photo-list')
-    var photoItem = document.createElement('li');
-    var button = document.createElement('button');
-    var thumbNail = document.createElement('img');
-    thumbNail.src = photo.preview;
-    thumbNail.classList.add('thumb');
-    button.innerText = 'Pixabay Photo ID: ' + photo.pixID;
-    button.classList.add('photoButton');
-    button.appendChild(thumbNail);
-    photoItem.appendChild(button);
-    photoList.appendChild(photoItem);
-    buttonListen(button, photo);
-  }
+ // add Photo buttons
+
+function addListItem(photo) {
+  var photoList = $('.photo-list');
+  var photoItem = $('<li></li>');
+  var button = $('<button class="photoButton">Pixabay Photo ID + photo.pixID</button>');
+  var thumbNail = $('<img class="thumb" src=photo.preview>');
+  button.append(thumbNail);
+  photoItem.append(button);
+  photoList.append(photoItem);
+  buttonListen(button, photo);
+}
 
   function showLoadingMessage(banner) {
-    banner.classList.remove('hideDataLoading');
+    banner.removeClass('hideDataLoading');
   }
 
   function hideLoadingMessage(banner) {
-    banner.classList.add('hideDataLoading');
+    banner.addClass('hideDataLoading');
   }
 
-  ///fetch photo data
-  function loadList() {
+ //fetch photo data
+ function loadList() {
     showLoadingMessage(banner);
     return fetch(apiUrl).then(function (response) {
       return response.json();
@@ -64,12 +61,12 @@ var photoRepository = (function () {
     })
   }
 
-/*  function loadList() {
+/*function loadList(photo) {
   showLoadingMessage(banner);
   jQuery.getJSON(apiUrl, function(data) {
     if (parseInt(data.totalHits) > 0)
     jQuery.each(data.hits, function(i, hit){
-      console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
+      //console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL);
       var photo = {
         id: hit.id,
         tags: hit.tags,
@@ -85,7 +82,7 @@ var photoRepository = (function () {
       console.log('No hits');
     }
   })
-};*/
+}; */
 
   function showDetails(photo) {
     showLoadingMessage(banner);
@@ -95,7 +92,7 @@ var photoRepository = (function () {
 
   //creates event listener for each button
   function buttonListen(button, photo) {
-    button.addEventListener('click', function (event) {
+    button.on('click', function (event) {
       showDetails(photo);
     });
   }
@@ -151,18 +148,18 @@ var photoRepository = (function () {
     modal.appendChild(titleElement);
     modal.appendChild(listElement);
     modal.appendChild(imgElement);
-    modalContainer.appendChild(modal);
+    modalContainer.addClass(modal);
 
     hideLoadingMessage(banner);
 
     //focus closeButton so that user can simply press Enter
     closeButtonElement.focus();
 
-    modalContainer.classList.add('is-visible');
+    modalContainer.addClass('is-visible');
   }
 
   function hideModal() {
-    modalContainer.classList.remove('is-visible');
+    modalContainer.removeClass('is-visible');
   }
 
 /* document.querySelector('#show-modal').addEventListener('click', () => {
@@ -171,13 +168,13 @@ var photoRepository = (function () {
 
   //arrow function – Esc to close modal
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+    if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
       hideModal();
     }
   });
 
   // Click outside modal on modal overlay will close modal
-  modalContainer.addEventListener('click', (e) => {
+  modalContainer.on('click', (e) => {
     var target = e.target;
     if (target === modalContainer) {
       hideModal();
@@ -198,8 +195,7 @@ var photoRepository = (function () {
 // ------------- Functions external to IIFE -----------------------
 
 photoRepository.loadList().then(function() {            // this calls the data from API and then calls getAll
-  // Now the data is loaded!
-  photoRepository.getAll().forEach(function(photo){   //  getAll returns Photo, followed by forEach loop, add to pokemonList array
+  photoRepository.getAll().forEach(function(photo){     //  getAll returns photo, followed by forEach loop, add to photoList array
     photoRepository.addListItem(photo);
   });
 });
