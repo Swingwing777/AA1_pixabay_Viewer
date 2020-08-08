@@ -74,6 +74,30 @@ ul {
   list-style: none;
 }
 
+a {
+  color: #d4d5ff;
+  text-decoration: none;
+  transition: all 1s ease;
+}
+
+a:visited {
+  /* change color when user visits link */
+  color: #955ead;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  /* remove underline/change colour
+  on hover or focus */
+  text-decoration: underline;
+}
+
+a:active {
+  /* selected link color */
+  color: #d2a8ff;
+}
+
 /* -- Flex styling for header --------- */
 
 .page-header {
@@ -207,7 +231,6 @@ ul {
 
 .thumb {
   object-fit: scale-down;
-
 }
 
 .photoButton:hover,
@@ -246,13 +269,13 @@ ul {
   margin: auto;
   display: grid;
   box-sizing: border-box;
-  background-color: #ff0;
-  background-image: linear-gradient(to bottom, rgba(240, 0, 12, 0.3), rgba(240, 0, 12, 0.1));
+  background-color: #43455c;
+  background-image: linear-gradient(to bottom, rgba(18, 19, 33, 0.7), rgba(18, 19, 33, 0.1));
   padding: 15px;
   width: 100%;
   max-width: 700px;
   text-align: center;
-  box-shadow: 2px 2px 5px #620;
+  box-shadow: 2px 2px 5px #01021c;
   border-radius: 8px;
   transition: all 1s ease;
 }
