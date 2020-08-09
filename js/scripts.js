@@ -3,7 +3,8 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  var CHOICE = 'architecture';
+  var userChoice = $('#userChoice');
+  var CHOICE = 'landscape';      //$('#userChoice').val();
 
   // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
   var apiUrl =
@@ -46,38 +47,10 @@ var photoRepository = (function () {
   }
 
   //fetch photo data
-
-  //fetch photo data - conventional JavaScript
-    function loadList() {
-     showLoadingMessage(banner);
-     return fetch(apiUrl)
-       .then(function (response) {
-         return response.json();
-       })
-       .then(function (json) {
-         json.hits.forEach(function (hit) {
-           var photo = {
-             pixID: hit.id,
-             tags: hit.tags,
-             preview: hit.previewURL,
-             webSize: hit.webformatURL,
-             largeImage: hit.largeImageURL,
-             pageURL: hit.pageURL,
-         };
-         add(photo);
-         hideLoadingMessage(banner);
-       });
-     })
-     .catch(function (e) {
-       hideLoadingMessage(banner);
-       console.error(e);
-     });
-   }
-
   // Ajax function - jQuery
-  /*function loadList(photo) {
+  function loadList() {
     showLoadingMessage(banner);
-    $.ajax(apiUrl, {
+    return $.ajax(apiUrl, {
       dataType: 'json'
     }).then(function (data){
       if (parseInt(data.totalHits) > 0)
@@ -92,14 +65,14 @@ var photoRepository = (function () {
           pageURL: hit.pageURL,
         };
         add(photo);
-        //  hideLoadingMessage(banner);
+        hideLoadingMessage(banner);
       })
       else {
         hideLoadingMessage(banner);
         console.log('No hits');
       };
     })
-  }*/
+  }
 
 
   function showDetails(photo) {
@@ -167,10 +140,44 @@ var photoRepository = (function () {
 
   function hideModal() {
     modalContainer.removeClass('is-visible');
+    modalContainer.empty;
   }
 
+  // Form validation
+
+  function showError(input, message) {
+    var container = $('.userForm');
+    var error = $('.errorMessage');
+    if (error) {
+      container.remove(error);
+    }
+    if (message) {
+      var error = $('<div class="errorMessage">message</div>');
+      container.append(error);
+    }
+  }
+
+  function validateChoice() {
+    if (!userChoice) {
+      showError(userChoice, " Please enter search words separated by '+' ");
+      return false;
+    }
+     showError(userChoice, null);
+     return true;
+  }
+
+  $('#submitButton').on('click', function () {
+    return userChoice.val();
+    loadList();
+    console.log(click);
+  });
+
+
+//  End of form validation
+
+
   //arrow function – Esc to close modal
-  window.addEventListener('keydown', (e) => {
+  $(window).on('keydown', (e) => {
     if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
       hideModal();
     }
@@ -178,10 +185,10 @@ var photoRepository = (function () {
 
   // Click outside modal on modal overlay will close modal
   modalContainer.on('click', (e) => {
-    var target = e.target;
-    if (target === modalContainer) {
+    //var target = e.target;
+    //if (target === modalContainer) {
       hideModal();
-    }
+      console.log('click');
   });
 
 // -------------- End of modal   --------------------
