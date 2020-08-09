@@ -11,8 +11,6 @@ body {
   color: black;
   background-color: #7f868f;
   background-image: url(../img/Rome_1.png), url(../img/Frankfurt_1_75.png), url(../img/Nymphs_1_75.png);
-
-
   font-family: 'Raleway', sans-serif;
   font-size: 20px;
   line-height: 1.6;
@@ -122,6 +120,18 @@ a:active {
   color: blue;
   font-size: 24px;
   text-shadow: 1px 1px 1px #fff;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+  text-align: center;
+  font-style: italic;
+  display: block;
+  text-shadow: 1px 1px 2px #fff;
+  background: white;
+  width: 250px;
+  box-shadow: 2px 2px 4px #000;
 }
 
 .dataLoading {
@@ -303,14 +313,33 @@ a:active {
 .modal ul {
   float: left;
   list-style: none;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 #show-modal {
   visibility: hidden;
 }
 
-/* --------------- media queries required ---------------- */
+#submitButton {
+  background: blue;
+  z-index: 500;
+}
+
+#userChoice {
+  font-size: 14px;
+  width: 300px;
+  height: 40px;
+  padding: 5px;
+}
+
+#userInput {
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 3px #000;
+}
+
+/* -----------Media queries required --------------- */
 
 @media all and (min-width: 500px) and (max-width: 800px) {
   .photoList {
@@ -340,4 +369,4 @@ a:active {
   }
 }
 
-/*-------------------Experiment ------------------*/
+/* --------------Experiment ------------------ */

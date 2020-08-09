@@ -2,8 +2,16 @@
 
 var photoRepository = (function () {
   var photoAlbum = [];
+  var API_KEY = '17795524-3cd93801424773114b97b5b02';
+  var userChoice = $('#userChoice').val();
+
+  // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
   var apiUrl =
+<<<<<<< Updated upstream
     'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
+=======
+    `https://pixabay.com/api/?key='+API_KEY+'&q=${userChoice}'&image_type=photo?`;
+>>>>>>> Stashed changes
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
@@ -71,7 +79,11 @@ var photoRepository = (function () {
    }
 
   // Ajax function - jQuery
+<<<<<<< Updated upstream
   /*function loadList(photo) {
+=======
+  function loadList(CHOICE) {
+>>>>>>> Stashed changes
     showLoadingMessage(banner);
     $.ajax(apiUrl, {
       dataType: 'json'
@@ -165,8 +177,47 @@ var photoRepository = (function () {
     modalContainer.removeClass('is-visible');
   }
 
+<<<<<<< Updated upstream
   //arrow function – Esc to close modal
   window.addEventListener('keydown', (e) => {
+=======
+
+  // Form validation
+
+  function showError(input, message) {
+    var container = $('.userForm');
+    var error = $('.errorMessage');
+    if (error) {
+      container.remove(error);
+    }
+    if (message) {
+      var error = $('<div class="errorMessage">message</div>');
+      container.append(error);
+    }
+  }
+
+  function validateChoice() {
+    if (!userChoice) {
+      showError(userChoice, " Please enter search words separated by '+' ");
+      return false;
+    }
+     showError(userChoice, null);
+     return true;
+  }
+
+  $('#submitButton').on('submit', function () {
+    return userChoice;
+    loadList();
+    console.log(userChoice);
+  });
+
+
+//  End of form validation
+
+
+  //arrow function – Esc to close modal
+  $(window).on('keydown', (e) => {
+>>>>>>> Stashed changes
     if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
       hideModal();
     }
@@ -177,8 +228,12 @@ var photoRepository = (function () {
     var target = e.target;
     if (target === modalContainer) {
       hideModal();
+<<<<<<< Updated upstream
     }
   });
+=======
+    });
+>>>>>>> Stashed changes
 
 // -------------- End of modal   --------------------
 
