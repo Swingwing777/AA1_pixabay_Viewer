@@ -7,11 +7,7 @@ var photoRepository = (function () {
 
   // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
   var apiUrl =
-<<<<<<< Updated upstream
-    'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
-=======
     'https://pixabay.com/api/?key='+API_KEY+'&q='+CHOICE+'&image_type=photo?';
->>>>>>> Stashed changes
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
