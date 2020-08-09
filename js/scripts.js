@@ -4,7 +4,7 @@ var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
   var userChoice = $('#userChoice');
-  var CHOICE = 'landscape';      //$('#userChoice').val();
+  var CHOICE = 'landscape+monochrome';      //$('#userChoice').val();
 
   // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
   var apiUrl =
@@ -140,7 +140,7 @@ var photoRepository = (function () {
 
   function hideModal() {
     modalContainer.removeClass('is-visible');
-    modalContainer.empty;
+    modalContainer.empty();
   }
 
   //arrow function – Esc to close modal
