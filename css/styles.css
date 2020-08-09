@@ -141,7 +141,7 @@ a:active {
   /* this displays the message on top */
   z-index: 1000;
   position: fixed;
-  top: 30%;
+  top: 35%;
   left: 50%;
   margin-top: -20px;
   margin-left: -4.5em;

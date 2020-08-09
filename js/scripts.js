@@ -3,15 +3,11 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  var userChoice = $('#userChoice').val();
+  var CHOICE = 'landscape';      //$('#userChoice').val();
 
   // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
   var apiUrl =
-<<<<<<< Updated upstream
-    'https://pixabay.com/api/?key=17795524-3cd93801424773114b97b5b02&q=landscape+monochrome&image_type=photo';
-=======
-    `https://pixabay.com/api/?key='+API_KEY+'&q=${userChoice}'&image_type=photo?`;
->>>>>>> Stashed changes
+    'https://pixabay.com/api/?key='+API_KEY+'&q='+CHOICE+'&image_type=photo?';
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
@@ -50,42 +46,10 @@ var photoRepository = (function () {
   }
 
   //fetch photo data
-
-  //fetch photo data - conventional JavaScript
-    function loadList() {
-     showLoadingMessage(banner);
-     return fetch(apiUrl)
-       .then(function (response) {
-         return response.json();
-       })
-       .then(function (json) {
-         json.hits.forEach(function (hit) {
-           var photo = {
-             pixID: hit.id,
-             tags: hit.tags,
-             preview: hit.previewURL,
-             webSize: hit.webformatURL,
-             largeImage: hit.largeImageURL,
-             pageURL: hit.pageURL,
-         };
-         add(photo);
-         hideLoadingMessage(banner);
-       });
-     })
-     .catch(function (e) {
-       hideLoadingMessage(banner);
-       console.error(e);
-     });
-   }
-
   // Ajax function - jQuery
-<<<<<<< Updated upstream
-  /*function loadList(photo) {
-=======
-  function loadList(CHOICE) {
->>>>>>> Stashed changes
+  function loadList() {
     showLoadingMessage(banner);
-    $.ajax(apiUrl, {
+    return $.ajax(apiUrl, {
       dataType: 'json'
     }).then(function (data){
       if (parseInt(data.totalHits) > 0)
@@ -107,7 +71,7 @@ var photoRepository = (function () {
         console.log('No hits');
       };
     })
-  }*/
+  }
 
 
   function showDetails(photo) {
@@ -175,12 +139,8 @@ var photoRepository = (function () {
 
   function hideModal() {
     modalContainer.removeClass('is-visible');
+    modalContainer.remove(modal);
   }
-
-<<<<<<< Updated upstream
-  //arrow function – Esc to close modal
-  window.addEventListener('keydown', (e) => {
-=======
 
   // Form validation
 
@@ -217,7 +177,6 @@ var photoRepository = (function () {
 
   //arrow function – Esc to close modal
   $(window).on('keydown', (e) => {
->>>>>>> Stashed changes
     if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
       hideModal();
     }
@@ -225,15 +184,10 @@ var photoRepository = (function () {
 
   // Click outside modal on modal overlay will close modal
   modalContainer.on('click', (e) => {
-    var target = e.target;
-    if (target === modalContainer) {
+    //var target = e.target;
+    //if (target === modalContainer) {
       hideModal();
-<<<<<<< Updated upstream
-    }
   });
-=======
-    });
->>>>>>> Stashed changes
 
 // -------------- End of modal   --------------------
 
