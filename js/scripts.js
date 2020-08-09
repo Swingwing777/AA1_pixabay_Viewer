@@ -143,39 +143,6 @@ var photoRepository = (function () {
     modalContainer.empty;
   }
 
-  // Form validation
-
-  function showError(input, message) {
-    var container = $('.userForm');
-    var error = $('.errorMessage');
-    if (error) {
-      container.remove(error);
-    }
-    if (message) {
-      var error = $('<div class="errorMessage">message</div>');
-      container.append(error);
-    }
-  }
-
-  function validateChoice() {
-    if (!userChoice) {
-      showError(userChoice, " Please enter search words separated by '+' ");
-      return false;
-    }
-     showError(userChoice, null);
-     return true;
-  }
-
-  $('#submitButton').on('click', function () {
-    return userChoice.val();
-    loadList();
-    console.log(click);
-  });
-
-
-//  End of form validation
-
-
   //arrow function – Esc to close modal
   $(window).on('keydown', (e) => {
     if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
