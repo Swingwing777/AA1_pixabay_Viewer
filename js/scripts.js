@@ -3,12 +3,12 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  var userChoice = $('#userChoice');
-  var CHOICE = 'landscape+monochrome';      //$('#userChoice').val();
-
-  // 'https://pixabay.com/api/?key='+API_KEY+'&q=landscape+monochrome&image_type=photo?';
-  var apiUrl =
-    'https://pixabay.com/api/?key='+API_KEY+'&q='+CHOICE+'&image_type=photo?';
+  //var userChoice = $('#userChoice').val();    // Ebere, why am I failing to use input field value in apiUrlChoice?  Browser just goes straight to default.
+  userChoice = 'mountains';                     // Hard-wiring userChoice to a string works.
+  var apiUrlDefault =
+   'https://pixabay.com/api/?key='+API_KEY+'&per_page=39&q=landscape+monochrome&image_type=photo?';
+  var apiUrlChoice =
+    'https://pixabay.com/api/?key='+API_KEY+'&per_page=39&q='+`${userChoice}`+'&image_type=photo?';
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
@@ -26,9 +26,10 @@ var photoRepository = (function () {
 
   function addListItem(photo) {
     var photoList = $('.photo-list');
-    var photoItem = $('<li></li>');
+    photoList.addClass('container-fluid');
+    var photoItem = $('<li class="row"></li>');
     var button = $(
-      `<button style="font-size: 14px" class="photoButton">Pixabay ID: ${photo.pixID}</button>`
+      `<button style="font-size: 14px" class="photoButton" class="col">Pixabay ID: ${photo.pixID}</button>`
     );
     var thumbNail = $(
       `<img style="height:70px; margin: 0 auto" class="thumb" src="${photo.preview}">`);
@@ -48,30 +49,53 @@ var photoRepository = (function () {
 
   //fetch photo data
   // Ajax function - jQuery
-  function loadList() {
+  function loadList(userChoice) {
     showLoadingMessage(banner);
-    return $.ajax(apiUrl, {
-      dataType: 'json'
-    }).then(function (data){
-      if (parseInt(data.totalHits) > 0)
-      $.each(data.hits, function(i, hit){
-        console.log(hit.id, hit.tags, hit.previewURL, hit.webformatURL, hit.largeImageURL, hit.pageURL);
-        var photo = {
-          pixID: hit.id,
-          tags: hit.tags,
-          preview: hit.previewURL,
-          webSize: hit.webformatURL,
-          largeImage: hit.largeImageURL,
-          pageURL: hit.pageURL,
+    if (userChoice === undefined) {
+      return $.ajax(apiUrlDefault, {
+        dataType: 'json'
+      }).then(function (data){
+        if (parseInt(data.totalHits) > 0)
+        $.each(data.hits, function(i, hit){
+          var photo = {
+            pixID: hit.id,
+            tags: hit.tags,
+            preview: hit.previewURL,
+            webSize: hit.webformatURL,
+            largeImage: hit.largeImageURL,
+            pageURL: hit.pageURL,
+          };
+          add(photo);
+          hideLoadingMessage(banner);
+        })
+        else {
+          hideLoadingMessage(banner);
+          console.log('No hits');
         };
-        add(photo);
-        hideLoadingMessage(banner);
       })
-      else {
-        hideLoadingMessage(banner);
-        console.log('No hits');
-      };
-    })
+    }else{
+      return $.ajax(apiUrlChoice, {
+        dataType: 'json'
+      }).then(function (data){
+        if (parseInt(data.totalHits) > 0)
+        $.each(data.hits, function(i, hit){
+          var photo = {
+            pixID: hit.id,
+            tags: hit.tags,
+            preview: hit.previewURL,
+            webSize: hit.webformatURL,
+            largeImage: hit.largeImageURL,
+            pageURL: hit.pageURL,
+          };
+          add(photo);
+          hideLoadingMessage(banner);
+        })
+        else {
+          hideLoadingMessage(banner);
+          console.log('No hits');
+        };
+      })
+    }
   }
 
 
@@ -158,6 +182,12 @@ var photoRepository = (function () {
       console.log('click');
   });
 
+  $('#submitButton').on('click', function (e) {
+    userChoice = $('#submitButton');
+    alert('Your choice is: ' + $('#userChoice').val())   // this is just to check for now that I'm getting a value from the input box
+    loadlist(userChoice);
+  });
+
 // -------------- End of modal   --------------------
 
 // Return statement of photoRepository IIFE
@@ -171,7 +201,7 @@ var photoRepository = (function () {
 
 // ------------- Functions external to IIFE -----------------------
 
-photoRepository.loadList().then(function(photo) {
+photoRepository.loadList(userChoice).then(function(photo) {
   // this calls the data from API and then calls getAll
   photoRepository.getAll().forEach(function(photo){
     //  getAll returns photo, followed by forEach loop, add to photoList array

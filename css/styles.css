@@ -7,7 +7,7 @@
 }
 
 body {
-  max-width: 1500px;
+  max-width: 1800px;
   color: black;
   background-color: #7f868f;
   background-image: url(../img/Rome_1.png), url(../img/Frankfurt_1_75.png), url(../img/Nymphs_1_75.png);
@@ -16,15 +16,6 @@ body {
   line-height: 1.6;
   margin: 0 auto;
   padding: 30px;
-}
-
-header {
-  background-color: #212a36;
-  background-image: url(../img/Him_03.png);
-  box-shadow: 3px 3px 5px #000;
-  background-size: cover;
-  width: 1500px;
-  height: 400px;
 }
 
 h1,
@@ -98,21 +89,12 @@ a:active {
 
 /* -- Flex styling for header --------- */
 
-.page-header {
-  display: flex;
-  width: 100%;
-  height: 300px;
-  padding: 20px;
-}
-
-.page-header__item {
-  flex: 0 1 400px;
-}
-
-.page-header__item:last-child {
-  flex-grow: 1;
-  max-width: 700px;
-  margin-right: 20px;
+.navbar {
+  background-color: #212a36;
+  background-image: url(../img/Him_03.png);
+  box-shadow: 3px 3px 5px #000;
+  background-size: cover;
+  height: 400px;
 }
 
 .strong1 {
@@ -182,10 +164,19 @@ a:active {
 /* -- ID styling -------------- */
 
 #myLogo {
-  margin-left: 20px;
-  width: 200px;
-  height: 50px;
+  padding: 0;
   box-shadow: 2px 2px 4px #000;
+}
+
+#userInput {
+  font-size: 36px;
+  font-weight: bolder;
+  font-variant:small-caps;
+  text-shadow: 2px 2px 3px #fff;
+}
+
+#userForm {
+  background: rgba(247, 250, 255, 0.5);
 }
 
 /*  ------- CSS grid styling -------------- */
