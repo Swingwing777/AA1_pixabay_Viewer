@@ -25,29 +25,20 @@ h2 {
   text-shadow: 1px 1px 3px #000;
 }
 
-strong {
-  color: red;
-  font-family: 'Indie Flower', cursive;
-  text-shadow: 1px 1px 1px #000;
-}
-
 button {
   border-style: solid;
   border-width: 1px;
   border-color: black;
   border-radius: 5px;
-  background-color: red;
   margin: 20px;
   width: 120px;
   color: white;
-  filter: brightness(1);
   transition: all 1s ease;
   box-shadow: 2px 2px 5px #000;
 }
 
 button:hover,
 button:focus {
-  cursor: pointer;
   filter: brightness(0.8);
 }
 
@@ -57,10 +48,6 @@ hr {
   height: 7px;
   background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
   max-width: 1500px;
-}
-
-ul {
-  list-style: none;
 }
 
 a {
@@ -95,13 +82,6 @@ a:active {
   box-shadow: 3px 3px 5px #000;
   background-size: cover;
   height: 400px;
-}
-
-.strong1 {
-  font-family: 'Indie Flower', cursive;
-  color: blue;
-  font-size: 24px;
-  text-shadow: 1px 1px 1px #fff;
 }
 
 .dataLoading {
@@ -179,34 +159,18 @@ a:active {
   background: rgba(247, 250, 255, 0.5);
 }
 
-/*  ------- CSS grid styling -------------- */
-
-/* grids go here */
-.photoButton {               /* grid fallback */
-  display: inline-block;
-  width: 33%;
-}
-
-.photo-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-}
-
 .photoButton {     /* buttons are grid items as well */
-  display: grid;
   font-family: 'Oswald', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
-  justify-content: space-around;
+  text-shadow: 1px 1px 2px #000;
   border-style: solid;
   padding-top: 0.4rem;
   border-width: 1px;
   border-color: black;
   border-radius: 5px;
   background: #00193b;
-  background-image: url(p);
-  height: 120px;
+  height: 160px;
   width: 280px;
   margin: 0 auto;
   color: #fff;
@@ -284,31 +248,20 @@ a:active {
   font-size: 30px;
 }
 
-.pokemonImage {
-  display: block;
-  margin: 0 auto;
-}
-
 .modal ul {
   float: left;
   list-style: none;
   margin-top: 0px;
 }
 
-#show-modal {
-  visibility: hidden;
-}
-
-/* --------------- media queries required ---------------- */
+/* --------------- media queries required ----------------*/
 
 @media all and (min-width: 500px) and (max-width: 800px) {
-  .photoList {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .photoButton {
-    height: 50px;
+    margin: 14px;
+    height: 100px;
     width: 200px;
+    background-size: cover;
   }
 }
 
@@ -317,15 +270,12 @@ a:active {
     padding: 10px;
   }
 
-  .photoList {
-    grid-template-columns: 1fr;
-  }
-
   .photoButton {
-    font-size: 24px;
-    margin: auto;
-    height: 50px;
+    font-size: 14px;
+    margin: 10px;
+    height: 80px;
     width: 200px;
+    background-size: cover;
   }
 }
 

@@ -3,12 +3,12 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  //var userChoice = $('#userChoice').val();    // Ebere, why am I failing to use input field value in apiUrlChoice?  Browser just goes straight to default.
-  userChoice = 'mountains';                     // Hard-wiring userChoice to a string works.
+  var userChoice = $('#userChoice').val();        // Ebere, why am I failing to use input field value in apiUrlChoice?  Browser just goes straight to default.
+  //userChoice = 'mountains';                     // Hard-wiring userChoice to a string works.
   var apiUrlDefault =
-   'https://pixabay.com/api/?key='+API_KEY+'&per_page=39&q=landscape+monochrome&image_type=photo?';
+   'https://pixabay.com/api/?key='+API_KEY+'&per_page=40&q=landscape+monochrome&image_type=photo?';
   var apiUrlChoice =
-    'https://pixabay.com/api/?key='+API_KEY+'&per_page=39&q='+`${userChoice}`+'&image_type=photo?';
+    'https://pixabay.com/api/?key='+API_KEY+'&per_page=40&q='+`${userChoice}`+'&image_type=photo?';
   var banner = $('.dataLoading');
   var modalContainer = $('#modal-container');
 
@@ -24,19 +24,25 @@ var photoRepository = (function () {
 
   // add Photo buttons
 
-  function addListItem(photo) {
-    var photoList = $('.photo-list');
-    photoList.addClass('container-fluid');
-    var photoItem = $('<li class="row"></li>');
-    var button = $(
-      `<button style="font-size: 14px" class="photoButton" class="col">Pixabay ID: ${photo.pixID}</button>`
+  function addListItem(photo){
+    var photoRow = $('.row')
+    //var photoItem = $('<li class="col-4"></li>');
+    var photoButton = $(
+      `<button
+      style="background-image: url(${photo.preview});
+        background-size:contain;
+        background-repeat: no-repeat;"
+      data-toggle="modal"
+      data-target="photoModal"
+      class="photoButton
+       text-right
+       col-sm-2
+       m-lg-3">
+      Pixabay ID:<br>${photo.pixID}
+      </button>`
     );
-    var thumbNail = $(
-      `<img style="height:70px; margin: 0 auto" class="thumb" src="${photo.preview}">`);
-    button.append(thumbNail);
-    photoItem.append(button);
-    photoList.append(photoItem);
-    buttonListen(button, photo);
+    photoRow.append(photoButton);
+    buttonListen(photoButton, photo);
   }
 
   function showLoadingMessage(banner) {
@@ -51,7 +57,10 @@ var photoRepository = (function () {
   // Ajax function - jQuery
   function loadList(userChoice) {
     showLoadingMessage(banner);
-    if (userChoice === undefined) {
+
+    // if (userChoice === undefined) - causes
+    // API to download its own defaul selection rather than my default choice?
+    if (!userChoice) {
       return $.ajax(apiUrlDefault, {
         dataType: 'json'
       }).then(function (data){
@@ -210,3 +219,8 @@ photoRepository.loadList(userChoice).then(function(photo) {
 });
 
 // -----------------Experiment --------------
+
+$('[data-toggle="modal"]').on('click', function(){
+  var targetSelector = $(this).attr('data-target');
+  $(targetSelector).modal('show'); // Bootstrap’s own function to make the modal appear
+});
