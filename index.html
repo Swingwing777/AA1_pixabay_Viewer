@@ -30,20 +30,19 @@
   </nav>
   <hr>
 
-  <!--button id='show-modal'>Show modal</button-->
-  <div id='modal-container'></div>
+  <!-- aria-labelledby="" removed -->
+  <div class="modalHere"></div>
+
   <section>
     <h1 class="heading">Images from
       <img src=img/pixabayLogo.svg width=120 alt="The logo of pixabay.com">
    </h1>
     <p class="dataLoading">Please wait - Data Loading</p>
-    <div class="allButtons container-fluid">
+    <div class="container-fluid">
       <div class="row justify-content-center p"></div>
     </div>
   </section>
 
-  <!-- No need Promise or fetch if using jQuery with ajax()-->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>

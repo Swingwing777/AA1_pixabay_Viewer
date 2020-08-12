@@ -10,7 +10,7 @@ var photoRepository = (function () {
   var apiUrlChoice =
     'https://pixabay.com/api/?key='+API_KEY+'&per_page=40&q='+`${userChoice}`+'&image_type=photo?';
   var banner = $('.dataLoading');
-  var modalContainer = $('#modal-container');
+  var modalContainer = $('.modalHere');
 
 
   // essential functions to access data within IIFE
@@ -26,15 +26,15 @@ var photoRepository = (function () {
 
   function addListItem(photo){
     var photoRow = $('.row')
-    //var photoItem = $('<li class="col-4"></li>');
     var photoButton = $(
       `<button
       style="background-image: url(${photo.preview});
         background-size:contain;
         background-repeat: no-repeat;"
+      type="button"
       data-toggle="modal"
-      data-target="photoModal"
-      class="photoButton
+      data-target="#photoModal"
+      class="btn photoButton
        text-right
        col-sm-2
        m-lg-3">
@@ -53,7 +53,6 @@ var photoRepository = (function () {
     banner.addClass('hideDataLoading');
   }
 
-  //fetch photo data
   // Ajax function - jQuery
   function loadList(userChoice) {
     showLoadingMessage(banner);
@@ -107,9 +106,9 @@ var photoRepository = (function () {
     }
   }
 
-
   function showDetails(photo) {
     console.log(photo);
+    hideModal();
     showLoadingMessage(banner);
     showModal(
       photo.preview,
@@ -123,7 +122,7 @@ var photoRepository = (function () {
   }
 
 
-//creates event listener for each button
+//creates event listener for each button.  Cannot use Bootstrap built-in as loads all with addListitem
 
   function buttonListen(button, photo) {
     button.on('click', function (event) {
@@ -134,42 +133,47 @@ var photoRepository = (function () {
   // --- Modal Functions within Photo Repository --------------
 
   function showModal(preview, tags, pixID, webSize, largeImage, pageURL) {
-
-    modalContainer.innerHTML = ("");
-    var modal = $('<div class="modal"></div>');
+    modalContainer.HTML = ("");
+    var modalFade = $('<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal-title"></div>')
+    var modal = $('<div class="modal-dialog" role="document"></div>');
+    var modalContent = $('<div class="modal-content"></div>');
+    var modalHeader = $('<div class="modal-header"></div>');
+    var modalTitle = $(`<h1 class="modal-title">Search Tags: ${tags}</h1>`);
+    var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+    var modalBody = $(`<div class="modal-body list-group"></div>`);
+    var pixID = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
+    var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
+    var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
     var imgElement = $(
-      `<img style="max-width:700px; display:grid" class="photoImage" alt="thumbnail" src ="${webSize}">`
+      `<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`
     );
-    var titleElement = $(`<h1 class="modalTitle">Search Tags: ${tags}</div>`);
-    var listElement = $(`<ul class="photoDetail"></ul>`);
-    var imageLink = $(`<a href="${largeImage}" target="_blank">View fullsize image<a>`);
-    var pageLink = $(`<a href="${pageURL}" target="_blank">Leave Comment<a>`)
-    var listElement__Item1 = $(`<li style="color:white" class="photoID">Pixabay ID: ${pixID}</li>`);
-    var listElement__Item2 = $('<li class="photoHD"></li>');
-    var listElement__Item3 = $(`<li class="photoComment"></li>`);
+    var modalFooter = $('<div class="modal-footer"></div>');
+    var modalClose = $('<button class="btn modal-close" data-dismiss="modalContainer">Close</button>');
+    modalClose.on('click', hideModal);
 
-    //create close button
-    var closeButtonElement = $('<button class="modal-close">Close</button>');
-    closeButtonElement.on('click', hideModal);
-    listElement__Item2.append(imageLink);
-    listElement__Item3.append(pageLink);
-    listElement               // Already jQuery defined.  No need for further $
-      .append(listElement__Item1)
-      .append(listElement__Item2)
-      .append(listElement__Item3);
-    modal                     //ditto
-      .append(titleElement)
-      .append(closeButtonElement)
-      .append(listElement)
+    modalHeader
+      .append(modalTitle)
+      .append(modalCloseSymbol);
+    modalBody
+      .append(pixID)
+      .append(imageLink)
+      .append(pageLink)
       .append(imgElement);
-    modalContainer.append(modal);   //ditto
+    modalFooter
+      .append(modalClose);
+    modal
+      .append(modalHeader)
+      .append(modalBody)
+      .append(modalFooter);
+    modalFade.append(modal);
+    modalContainer.append(modalFade);
 
     //focus closeButton so that user can simply press Enter
-    closeButtonElement.focus();
+    modalClose.on('click', hideModal);
+    modalClose.focus();
 
     modalContainer.addClass('is-visible');
   }
-
 
   function hideModal() {
     modalContainer.removeClass('is-visible');
@@ -183,19 +187,20 @@ var photoRepository = (function () {
     }
   });
 
-  // Click outside modal on modal overlay will close modal
+  //Click outside modal on modal overlay will close modal
   modalContainer.on('click', (e) => {
-    //var target = e.target;
-    //if (target === modalContainer) {
+    var target = e.target;
+    if (target === modalContainer) {
       hideModal();
       console.log('click');
+    }
   });
 
   $('#submitButton').on('click', function (e) {
     userChoice = $('#submitButton');
     alert('Your choice is: ' + $('#userChoice').val())   // this is just to check for now that I'm getting a value from the input box
     loadlist(userChoice);
-  });
+  }); 
 
 // -------------- End of modal   --------------------
 
@@ -219,8 +224,3 @@ photoRepository.loadList(userChoice).then(function(photo) {
 });
 
 // -----------------Experiment --------------
-
-$('[data-toggle="modal"]').on('click', function(){
-  var targetSelector = $(this).attr('data-target');
-  $(targetSelector).modal('show'); // Bootstrap’s own function to make the modal appear
-});
