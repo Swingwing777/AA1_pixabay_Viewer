@@ -3,21 +3,17 @@
 var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
-  var userChoice = $('#userChoice').val();        // Ebere, why am I failing to use input field value in apiUrlChoice?  Browser just goes straight to default.
-  //userChoice = 'mountains';                     // Hard-wiring userChoice to a string works.
-  var apiUrlDefault =
-   'https://pixabay.com/api/?key='+API_KEY+'&per_page=40&q=landscape+monochrome&image_type=photo?';
-  var apiUrlChoice =
-    'https://pixabay.com/api/?key='+API_KEY+'&per_page=40&q='+`${userChoice}`+'&image_type=photo?';
+
   var banner = $('.dataLoading');
   var modalContainer = $('.modalHere');
 
-
-  // essential functions to access data within IIFE
+  //This adds each photo to photoAlbum (and rebuilds button if cleared by showDetails())
   function add(photo) {
     photoAlbum.push(photo);
+    addListItem(photo);
   }
 
+  //This returns completed photoAlbum
   function getAll() {
     return photoAlbum;
   }
@@ -29,7 +25,7 @@ var photoRepository = (function () {
     var photoButton = $(
       `<button
       style="background-image: url(${photo.preview});
-        background-size:cover;
+        background-size:contain;
         background-repeat: no-repeat;"
       type="button"
       data-toggle="modal"
@@ -54,17 +50,20 @@ var photoRepository = (function () {
   }
 
   // Ajax function - jQuery
-  function loadList(userChoice) {
+  function loadList(userChoice = "landscape+monochrome") {
     showLoadingMessage(banner);
 
-    // if (userChoice === undefined) - causes
-    // API to download its own defaul selection rather than my default choice?
-    if (userChoice) {
-      return $.ajax(apiUrlDefault, {
-        dataType: 'json'
-      }).then(function (data){
-        if (parseInt(data.totalHits) > 0)
-        $.each(data.hits, function(i, hit){
+    var apiUrlChoice =
+      `https://pixabay.com/api/?key=${API_KEY}&per_page=40&q=${userChoice}&image_type=photo?`;
+
+    return $.ajax(apiUrlChoice, {
+      dataType: 'json',
+    }).then(function (data){
+      if (data.hits) {
+        photoAlbum = [];
+        $(".row").html("");
+
+        $.each(data.hits, function(i, hit) {
           var photo = {
             pixID: hit.id,
             tags: hit.tags,
@@ -75,36 +74,12 @@ var photoRepository = (function () {
           };
           add(photo);
           hideLoadingMessage(banner);
-        })
-        else {
+        });
+      } else {
           hideLoadingMessage(banner);
           console.log('No hits');
-        };
-      })
-    }else{
-      return $.ajax(apiUrlChoice, {
-        dataType: 'json'
-      }).then(function (data){
-        if (parseInt(data.totalHits) > 0)
-        $.each(data.hits, function(i, hit){
-          var photo = {
-            pixID: hit.id,
-            tags: hit.tags,
-            preview: hit.previewURL,
-            webSize: hit.webformatURL,
-            largeImage: hit.largeImageURL,
-            pageURL: hit.pageURL,
-          };
-          add(photo);
-          //console.log(data.hits);
-          hideLoadingMessage(banner);
-        })
-        else {
-          hideLoadingMessage(banner);
-          console.log('No hits');
-        };
-      })
-    }
+      }
+    });
   }
 
   function showDetails(photo) {
@@ -148,8 +123,8 @@ var photoRepository = (function () {
     var modalTitle = $(`<h1 id="modalTitle" class="modal-title">Search Tags: ${tags}</h1>`);
     var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
     var modalBody = $(`<div class="modal-body list-group"></div>`);
-    var pixID = $(`<h3 class="list-group-item" id="pixID" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
-    var imageLink = $(`<a class="list-group-item"  href="${largeImage}" target="_blank">View fullsize image</a>`);
+    var pixID = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
+    var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
     var imgElement = $(`<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
@@ -174,9 +149,9 @@ var photoRepository = (function () {
   }
 
   $('#submitButton').on('click', function (e) {
-    userChoice = $('#submitButton');
-    alert('Your choice is: ' + $('#userChoice').val())   // this is just to check for now that I'm getting a value from the input box
-    loadlist(userChoice);
+    e.preventDefault(); //stop default action of the button to avoid page reload
+    var userChoice = $('#userChoice').val();
+    loadList(userChoice);
   });
 
 // -------------- End of modal   --------------------
@@ -192,12 +167,10 @@ var photoRepository = (function () {
 
 // ------------- Functions external to IIFE -----------------------
 
-photoRepository.loadList(userChoice).then(function(photo) {
+photoRepository.loadList().then(function(photo) {
   // this calls the data from API and then calls getAll
   photoRepository.getAll().forEach(function(photo){
     //  getAll returns photo, followed by forEach loop, add to photoList array
     photoRepository.addListItem(photo);
   });
 });
-
-// -----------------Experiment --------------
