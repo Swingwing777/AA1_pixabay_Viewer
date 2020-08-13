@@ -108,7 +108,7 @@ var photoRepository = (function () {
 
   function showDetails(photo) {
     console.log(photo);
-    hideModal();
+//    hideModal();
     showLoadingMessage(banner);
     showModal(
       photo.preview,
@@ -134,73 +134,43 @@ var photoRepository = (function () {
 
   function showModal(preview, tags, pixID, webSize, largeImage, pageURL) {
     modalContainer.HTML = ("");
-    var modalFade = $('<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal-title"></div>')
-    var modal = $('<div class="modal-dialog" role="document"></div>');
+    var modalFade = $('<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalTitle"></div>');
+    var modalDialog = $('<div class="modal-dialog" role="document"></div>');
     var modalContent = $('<div class="modal-content"></div>');
     var modalHeader = $('<div class="modal-header"></div>');
-    var modalTitle = $(`<h1 class="modal-title">Search Tags: ${tags}</h1>`);
+    var modalTitle = $(`<h1 id="modalTitle" class="modal-title">Search Tags: ${tags}</h1>`);
     var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
     var modalBody = $(`<div class="modal-body list-group"></div>`);
     var pixID = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
     var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
-    var imgElement = $(
-      `<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`
-    );
+    var imgElement = $(`<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
-    var modalClose = $('<button class="btn modal-close" data-dismiss="modalContainer">Close</button>');
-    modalClose.on('click', hideModal);
+    var modalClose = $(`<button class="btn modal-close" data-dismiss="modal">Close</button>`);
 
-    modalHeader
-      .append(modalTitle)
-      .append(modalCloseSymbol);
+    modalFooter.append(modalClose);
     modalBody
       .append(pixID)
       .append(imageLink)
       .append(pageLink)
       .append(imgElement);
-    modalFooter
-      .append(modalClose);
-    modal
+    modalHeader
+      .append(modalTitle)
+      .append(modalCloseSymbol);
+    modalContent
       .append(modalHeader)
       .append(modalBody)
       .append(modalFooter);
-    modalFade.append(modal);
+    modalDialog.append(modalContent);
+    modalFade.append(modalDialog);
     modalContainer.append(modalFade);
-
-    //focus closeButton so that user can simply press Enter
-    modalClose.on('click', hideModal);
-    modalClose.focus();
-
-    modalContainer.addClass('is-visible');
   }
-
-  function hideModal() {
-    modalContainer.removeClass('is-visible');
-    modalContainer.empty();
-  }
-
-  //arrow function – Esc to close modal
-  $(window).on('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.hasClass('is-visible')) {
-      hideModal();
-    }
-  });
-
-  //Click outside modal on modal overlay will close modal
-  modalContainer.on('click', (e) => {
-    var target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-      console.log('click');
-    }
-  });
 
   $('#submitButton').on('click', function (e) {
     userChoice = $('#submitButton');
     alert('Your choice is: ' + $('#userChoice').val())   // this is just to check for now that I'm getting a value from the input box
     loadlist(userChoice);
-  }); 
+  });
 
 // -------------- End of modal   --------------------
 
