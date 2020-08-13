@@ -188,16 +188,10 @@ a:active {
   filter: brightness(0.8);
 }
 
-#modalWindow {
-  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
-}
-
-
 /* ------------ Modal Styling --------------------------- */
 
 .modal-dialog {
   background-color: #43455c;
-  background-image: linear-gradient(to bottom, rgba(18, 19, 33, 0.9), rgba(174, 176, 209, 0.3));
   max-width: 700px;
   text-align: center;
   box-shadow: 2px 2px 5px #01021c;
@@ -209,14 +203,42 @@ a:active {
   background: #d5d7eb;
 }
 
+#modalWindow {
+  background-image: linear-gradient(to bottom, rgba(18, 19, 33, 0.9), rgba(174, 176, 209, 0.3));
+}
+
 /* --------------- media queries required ---------------- */
 
-@media all and (min-width: 500px) and (max-width: 800px) {
+@media all and (min-width: 500px) and (max-width: 850px) {
+  .navbar {
+    background-color: #212a36;
+    background-image: url(../img/Him_03.png);
+    box-shadow: 3px 3px 5px #000;
+    background-size: cover;
+    height: 250px;
+  }
+
   .photoButton {
     margin: 14px;
     height: 100px;
-    width: 200px;
+    width: 300px;
     background-size: cover;
+  }
+
+  #userInput {
+    font-size: 24px;
+  }
+
+  #picSource {
+    font-size: 21px;
+  }
+
+  #modalTitle {
+    font-size: 21px;
+  }
+
+  #pixID {
+    font-size: 21px;
   }
 }
 
@@ -225,16 +247,79 @@ a:active {
     padding: 10px;
   }
 
+  .navbar {
+    height: 280px;
+  }
+
   .photoButton {
     font-size: 14px;
     margin: 10px;
     height: 80px;
-    width: 200px;
+    width: 240px;
     background-size: cover;
   }
+
   .photoImage {
-    width: 250px;
+    width: 400px;
+  }
+
+  #modalReopen {
+    margin: 0 auto;
+  }
+
+  #userForm {
+    height: 150px;
+  }
+
+  #userInput {
+    font-size: 18px;
+  }
+
+  #myLogo {
+    width: 180px;
+    margin: 0 auto;
+  }
+
+  .list-group-item {
+    font-size: 14px;
+  }
+
+  #picSource {
+    font-size: 18px;
+  }
+
+  #modalTitle {
+    font-size: 18px;
   }
 }
 
-/*-------------------Experiment ------------------*/
+@media all and (max-width: 420px) {
+  .photoImage {
+    width: 360px;
+  }
+}
+
+@media all and (max-width: 380px) {
+  .photoImage {
+    width: 325px;
+  }
+}
+
+@media all and (max-width: 365px) {
+  .photoImage {
+    width: 310px;
+  }
+}
+
+
+@media all and (max-width: 330px) {
+  .photoImage {
+    width: 270px;
+  }
+}
+
+@media all and (max-width: 300px) {
+  .photoImage {
+    width: 230px;
+  }
+}

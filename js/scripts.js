@@ -29,7 +29,7 @@ var photoRepository = (function () {
     var photoButton = $(
       `<button
       style="background-image: url(${photo.preview});
-        background-size:contain;
+        background-size:cover;
         background-repeat: no-repeat;"
       type="button"
       data-toggle="modal"
@@ -59,7 +59,7 @@ var photoRepository = (function () {
 
     // if (userChoice === undefined) - causes
     // API to download its own defaul selection rather than my default choice?
-    if (!userChoice) {
+    if (userChoice) {
       return $.ajax(apiUrlDefault, {
         dataType: 'json'
       }).then(function (data){
@@ -96,6 +96,7 @@ var photoRepository = (function () {
             pageURL: hit.pageURL,
           };
           add(photo);
+          //console.log(data.hits);
           hideLoadingMessage(banner);
         })
         else {
@@ -147,8 +148,8 @@ var photoRepository = (function () {
     var modalTitle = $(`<h1 id="modalTitle" class="modal-title">Search Tags: ${tags}</h1>`);
     var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
     var modalBody = $(`<div class="modal-body list-group"></div>`);
-    var pixID = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
-    var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
+    var pixID = $(`<h3 class="list-group-item" id="pixID" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
+    var imageLink = $(`<a class="list-group-item"  href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
     var imgElement = $(`<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
