@@ -154,6 +154,14 @@ var photoRepository = (function () {
     loadList(userChoice);
   });
 
+  $(window).on('keydown', function (e) {
+    if (e.key === 'Enter') {
+    e.preventDefault(); //stop default action of the button to avoid page reload
+    var userChoice = $('#userChoice').val();
+    loadList(userChoice);
+  }
+  });
+
 // -------------- End of modal   --------------------
 
 // Return statement of photoRepository IIFE
