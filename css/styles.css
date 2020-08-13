@@ -146,6 +146,7 @@ a:active {
 
 #myLogo {
   padding: 0;
+  border-radius: 5px;
   box-shadow: 2px 2px 4px #000;
 }
 
@@ -158,6 +159,12 @@ a:active {
 
 #userSearchWrapper {
   background: rgba(247, 250, 255, 0.5);
+  border-radius: 5px;
+}
+
+#userChoice {
+  border-style: ridge;
+  border-radius: 5px;
 }
 
 #submitButton,
