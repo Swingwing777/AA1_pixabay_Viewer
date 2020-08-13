@@ -108,7 +108,7 @@ var photoRepository = (function () {
 
   function showDetails(photo) {
     console.log(photo);
-//    hideModal();
+    hideModal();
     showLoadingMessage(banner);
     showModal(
       photo.preview,
@@ -121,6 +121,12 @@ var photoRepository = (function () {
     hideLoadingMessage(banner);
   }
 
+
+  //Function needed to clean out modal between consecutive showDetails requests
+  function hideModal() {
+    modalContainer.removeClass('is-visible');
+    modalContainer.empty();
+  }
 
 //creates event listener for each button.  Cannot use Bootstrap built-in as loads all with addListitem
 
