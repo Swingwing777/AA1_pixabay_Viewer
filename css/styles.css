@@ -160,7 +160,8 @@ a:active {
   background: rgba(247, 250, 255, 0.5);
 }
 
-#submitButton {
+#submitButton,
+#modalReopen {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -171,10 +172,23 @@ a:active {
   box-shadow: 2px 2px 5px #000;
 }
 
+#modalReopen {
+  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  width: 240px;
+  color: white;
+  box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+}
+
 #submitButton:hover,
-#submitButton:focus {
+#submitButton:focus,
+#modalReopen:hover,
+#modalReopen:focus {
   filter: brightness(0.8);
 }
+
+
 
 /* ------------ Modal Styling --------------------------- */
 
@@ -192,7 +206,7 @@ a:active {
   background: #d5d7eb;
 }
 
-/* --------------- media queries required ----------------*/
+/* --------------- media queries required ---------------- */
 
 @media all and (min-width: 500px) and (max-width: 800px) {
   .photoButton {
