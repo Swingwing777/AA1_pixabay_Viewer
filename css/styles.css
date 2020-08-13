@@ -188,6 +188,9 @@ a:active {
   filter: brightness(0.8);
 }
 
+#modalWindow {
+  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+}
 
 
 /* ------------ Modal Styling --------------------------- */

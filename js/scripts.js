@@ -136,7 +136,7 @@ var photoRepository = (function () {
     modalContainer.HTML = ("");
     var modalFade = $('<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalTitle"></div>');
     var modalDialog = $('<div class="modal-dialog" role="document"></div>');
-    var modalContent = $('<div class="modal-content"></div>');
+    var modalContent = $('<div class="modal-content" id="modalWindow"></div>');
     var modalHeader = $('<div class="modal-header"></div>');
     var modalTitle = $(`<h1 id="modalTitle" class="modal-title">Search Tags: ${tags}</h1>`);
     var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
