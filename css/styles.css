@@ -113,7 +113,7 @@ a:active {
     3px 3px 5px #000;
 }
 
-.photoButton {     /* buttons are grid items as well */
+.photoButton {
   font-family: 'Oswald', sans-serif;
   font-size: 14px;
   text-align: center;
@@ -130,7 +130,7 @@ a:active {
   color: #fff;
   filter: brightness(1);
   transition: all 1s ease;
-  object-fit: scale-down;
+  background-size: cover;
   box-shadow:
     2px 3px 3px #fff inset,
     2px 2px 5px #000;
@@ -152,11 +152,11 @@ a:active {
 #userInput {
   font-size: 36px;
   font-weight: bolder;
-  font-variant:small-caps;
+  font-variant: small-caps;
   text-shadow: 2px 2px 3px #fff;
 }
 
-#userForm {
+#userSearchWrapper {
   background: rgba(247, 250, 255, 0.5);
 }
 
@@ -222,7 +222,6 @@ a:active {
     margin: 14px;
     height: 100px;
     width: 300px;
-    background-size: cover;
   }
 
   #userInput {
@@ -310,7 +309,6 @@ a:active {
     width: 310px;
   }
 }
-
 
 @media all and (max-width: 330px) {
   .photoImage {

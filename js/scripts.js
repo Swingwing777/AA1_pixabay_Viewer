@@ -25,7 +25,7 @@ var photoRepository = (function () {
     var photoButton = $(
       `<button
       style="background-image: url(${photo.preview});
-        background-size:contain;
+        background-size:cover;
         background-repeat: no-repeat;"
       type="button"
       data-toggle="modal"
@@ -54,7 +54,7 @@ var photoRepository = (function () {
     showLoadingMessage(banner);
 
     var apiUrlChoice =
-      `https://pixabay.com/api/?key=${API_KEY}&per_page=40&q=${userChoice}&image_type=photo?`;
+      `https://pixabay.com/api/?key=${API_KEY}&per_page=60&q=${userChoice}&image_type=photo?`;
 
     return $.ajax(apiUrlChoice, {
       dataType: 'json',
