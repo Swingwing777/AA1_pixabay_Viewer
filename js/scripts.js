@@ -4,7 +4,8 @@ var photoRepository = (function () {
   var photoAlbum = [];
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
 
-  var banner = $('.dataLoading');
+  var banner1 = $('.dataLoading');
+  var banner2 = $('.hideNoHits')
   var modalContainer = $('.modalHere');
 
   //This adds each photo to photoAlbum (and rebuilds button if cleared by showDetails())
@@ -41,17 +42,28 @@ var photoRepository = (function () {
     buttonListen(photoButton, photo);
   }
 
-  function showLoadingMessage(banner) {
-    banner.removeClass('hideDataLoading');
+  // Loading and No Hits messages
+
+  function showLoadingMessage(banner1) {
+    banner1.removeClass('hideDataLoading');
   }
 
-  function hideLoadingMessage(banner) {
-    banner.addClass('hideDataLoading');
+  function hideLoadingMessage(banner1) {
+    banner1.addClass('hideDataLoading');
+  }
+
+  function showNoMatches(banner2)  {
+    banner2.addClass('noHits');
+  }
+
+  function hideNoMatches(banner2)  {
+    banner2.removeClass('noHits');
   }
 
   // Ajax function - jQuery
   function loadList(userChoice = 'landscape+monochrome') {
-    showLoadingMessage(banner);
+    showLoadingMessage(banner1);
+    hideNoMatches(banner2);
 
     var apiUrlChoice =
       `https://pixabay.com/api/?key=${API_KEY}&per_page=60&q=${userChoice}&image_type=photo?`;
@@ -59,7 +71,7 @@ var photoRepository = (function () {
     return $.ajax(apiUrlChoice, {
       dataType: 'json',
     }).then(function (data){
-      if (data.hits) {
+      if (parseInt(data.totalHits) > 0)  {
         photoAlbum = [];
         $('.row').html('');
         $.each(data.hits, function(i, hit) {
@@ -72,18 +84,21 @@ var photoRepository = (function () {
             pageURL: hit.pageURL,
           };
           add(photo);
-          hideLoadingMessage(banner);
+          hideLoadingMessage(banner1);
         });
       } else {
-          hideLoadingMessage(banner);
-          alert('Sorry - none found. Please try different words');
+        photoAlbum = [];
+        $('.row').html('');
+          hideLoadingMessage(banner1);
+          showNoMatches(banner2);
        }
     });
   }
 
   function showDetails(photo) {
     hideModal();
-    showLoadingMessage(banner);
+    showLoadingMessage(banner1);
+    hideNoMatches(banner2);
     showModal(
       photo.preview,
       photo.tags,
@@ -92,7 +107,7 @@ var photoRepository = (function () {
       photo.largeImage,
       photo.pageURL
     );
-    hideLoadingMessage(banner);
+    hideLoadingMessage(banner1);
   }
 
 
