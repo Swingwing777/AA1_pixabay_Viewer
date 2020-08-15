@@ -26,16 +26,16 @@ var photoRepository = (function () {
     var photoRow = $('.row')
     var photoButton = $(
       `<button
-      style="background-image: url(${photo.preview});
+      style="background-image: url(${photo.webSize});
         background-size:cover;
-        background-repeat: no-repeat;"
+        background-repeat:no-repeat;"
       type="button"
       data-toggle="modal"
       data-target="#photoModal"
       class="btn photoButton
        text-right
-       col-sm-2
-       m-lg-3">
+       col-12 col-sm-3
+       m-2 m-sm-3">
       Pixabay ID:<br>${photo.pixID}
       </button>`
     );
@@ -142,7 +142,7 @@ var photoRepository = (function () {
     var pixIDNum = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
     var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
-    var imgElement = $(`<img style="max-width:700px height:auto" class="photoImage" alt="Larger image" src ="${webSize}">`);
+    var imgElement = $(`<img style="" class="photoImage w-100" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
     var modalClose = $('<button class="btn modal-close" data-dismiss="modal">Close</button>');
 
