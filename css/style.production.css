@@ -171,7 +171,6 @@ a:active {
 .photoButton {
   font-family: 'Oswald', sans-serif;
   font-size: 14px;
-  text-align: center;
   text-shadow: 1px 1px 2px #000;
   border-style: solid;
   padding-top: 0.4rem;
@@ -179,16 +178,14 @@ a:active {
   border-color: black;
   border-radius: 5px;
   background: #00193b;
-  height: 160px;
-  width: 280px;
-  margin: 0 auto;
+  height: 240px;
   color: #fff;
   -webkit-filter: brightness(1);
           filter: brightness(1);
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
   transition: all 1s ease;
-  background-size: cover;
+  background-size: contain;
   -webkit-box-shadow:
     2px 3px 3px #fff inset,
     2px 2px 5px #000;
@@ -296,6 +293,7 @@ a:active {
 .modal-dialog {
   background-color: #43455c;
   max-width: 700px;
+  max-height: 1000px;
   text-align: center;
   -webkit-box-shadow: 2px 2px 5px #01021c;
           box-shadow: 2px 2px 5px #01021c;
@@ -329,8 +327,13 @@ a:active {
 
   .photoButton {
     margin: 14px;
-    height: 100px;
-    width: 300px;
+    height: 200px;
+    width: 400px;
+  }
+
+  .photoImage {
+    max-width: 210px;
+    max-height: 500px;
   }
 
   .hideNoHits {
@@ -376,9 +379,9 @@ a:active {
   .photoButton {
     font-size: 14px;
     margin: 10px;
-    height: 80px;
-    width: 240px;
-    background-size: cover;
+    height: 200px;
+    width: 300px;
+    background-size: contain;
   }
 
   .photoImage {
@@ -433,13 +436,13 @@ a:active {
 
 @media all and (max-width: 330px) {
   .photoImage {
-    width: 270px;
+    max-width: 270px;
   }
 }
 
 @media all and (max-width: 300px) {
   .photoImage {
-    width: 230px;
+    max-width: 250px;
   }
 
   .hideNoHits {
