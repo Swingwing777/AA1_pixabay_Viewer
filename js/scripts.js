@@ -50,7 +50,7 @@ var photoRepository = (function () {
   }
 
   // Ajax function - jQuery
-  function loadList(userChoice = "landscape+monochrome") {
+  function loadList(userChoice = 'landscape+monochrome') {
     showLoadingMessage(banner);
 
     var apiUrlChoice =
@@ -61,8 +61,7 @@ var photoRepository = (function () {
     }).then(function (data){
       if (data.hits) {
         photoAlbum = [];
-        $(".row").html("");
-
+        $('.row').html('');
         $.each(data.hits, function(i, hit) {
           var photo = {
             pixID: hit.id,
@@ -77,13 +76,12 @@ var photoRepository = (function () {
         });
       } else {
           hideLoadingMessage(banner);
-          console.log('No hits');
+          alert('Sorry - no photographs meet your search requirements.  Please try again');
       }
     });
   }
 
   function showDetails(photo) {
-    console.log(photo);
     hideModal();
     showLoadingMessage(banner);
     showModal(
@@ -92,7 +90,7 @@ var photoRepository = (function () {
       photo.pixID,
       photo.webSize,
       photo.largeImage,
-      photo.pageURL,
+      photo.pageURL
     );
     hideLoadingMessage(banner);
   }
@@ -107,7 +105,7 @@ var photoRepository = (function () {
 //creates event listener for each button.  Cannot use Bootstrap built-in as loads all with addListitem
 
   function buttonListen(button, photo) {
-    button.on('click', function (event) {
+    button.on('click', function () {
       showDetails(photo);
     });
   }
@@ -115,24 +113,24 @@ var photoRepository = (function () {
   // --- Modal Functions within Photo Repository --------------
 
   function showModal(preview, tags, pixID, webSize, largeImage, pageURL) {
-    modalContainer.HTML = ("");
+    modalContainer.HTML = ('');
     var modalFade = $('<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalTitle"></div>');
     var modalDialog = $('<div class="modal-dialog" role="document"></div>');
     var modalContent = $('<div class="modal-content" id="modalWindow"></div>');
     var modalHeader = $('<div class="modal-header"></div>');
     var modalTitle = $(`<h1 id="modalTitle" class="modal-title">Search Tags: ${tags}</h1>`);
     var modalCloseSymbol = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-    var modalBody = $(`<div class="modal-body list-group"></div>`);
-    var pixID = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
+    var modalBody = $('<div class="modal-body list-group"></div>');
+    var pixIDNum = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
     var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
     var imgElement = $(`<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
-    var modalClose = $(`<button class="btn modal-close" data-dismiss="modal">Close</button>`);
+    var modalClose = $('<button class="btn modal-close" data-dismiss="modal">Close</button>');
 
     modalFooter.append(modalClose);
     modalBody
-      .append(pixID)
+      .append(pixIDNum)
       .append(imageLink)
       .append(pageLink)
       .append(imgElement);
@@ -175,7 +173,7 @@ var photoRepository = (function () {
 
 // ------------- Functions external to IIFE -----------------------
 
-photoRepository.loadList().then(function(photo) {
+photoRepository.loadList().then(function() {
   // this calls the data from API and then calls getAll
   photoRepository.getAll().forEach(function(photo){
     //  getAll returns photo, followed by forEach loop, add to photoList array
