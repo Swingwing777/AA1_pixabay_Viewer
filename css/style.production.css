@@ -28,9 +28,9 @@ hr {
   border: 0;
   margin: 0;
   height: 7px;
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(207, 207, 207, 0.1)), color-stop(rgba(83, 90, 99, 1.0)), to(rgba(207, 207, 207, 0.1)));
-  background-image: -o-linear-gradient(left, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
-  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(207, 207, 207, 0.1)), color-stop(rgba(83, 90, 99, 1)), to(rgba(207, 207, 207, 0.1)));
+  background-image: -o-linear-gradient(left, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1), rgba(207, 207, 207, 0.1));
+  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1), rgba(207, 207, 207, 0.1));
   max-width: 1500px;
 }
 
@@ -54,7 +54,7 @@ a:focus {
 }
 
 a:active {
-  color: #ff0000;
+  color: #f00;
 }
 
 /* -- Flex styling for header --------- */
@@ -83,7 +83,7 @@ a:active {
   width: 10em;
   font-family: 'Oswald', sans-serif;
   font-variant: normal;
-  font-size: 36px;
+  font-size: 30px;
   text-align: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
@@ -115,7 +115,7 @@ a:active {
   width: 10em;
   font-family: 'Oswald', sans-serif;
   font-variant: normal;
-  font-size: 36px;
+  font-size: 30px;
   text-align: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
@@ -137,6 +137,35 @@ a:active {
           box-shadow:
     2px 3px 3px #fff inset,
     3px 3px 5px #000;
+}
+
+.hideNoHits {
+  visibility: hidden;
+  height: auto;
+  z-index: 1000;
+  width: 14em;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-variant: normal;
+  font-size: 16px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #940000;
+  color: white;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+}
+
+.noHits {
+  visibility: visible;
 }
 
 .photoButton {
@@ -182,6 +211,7 @@ a:active {
   border-radius: 5px;
   -webkit-box-shadow: 2px 2px 4px #000;
           box-shadow: 2px 2px 4px #000;
+  width: 250px;
 }
 
 #userInput {
@@ -199,6 +229,7 @@ a:active {
 #userChoice {
   border-style: ridge;
   border-radius: 5px;
+  font-size: 16px;
 }
 
 #submitButton,
@@ -208,6 +239,7 @@ a:active {
   border-radius: 5px;
   margin: 20px;
   width: 120px;
+  background-color: #00b530;
   color: white;
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -216,12 +248,18 @@ a:active {
           box-shadow: 2px 2px 5px #000;
 }
 
+#submitButton {
+  margin: 0 auto;
+  margin-top: 1em;
+  margin-bottom: 10px;
+}
+
 #modalReopen {
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 25, 59, 1)), color-stop(rgba(0, 95, 224, 1)), to(rgba(0, 25, 59, 1)));
   background-image: -o-linear-gradient(left, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
   background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
   width: 240px;
-  color: white;
+  text-align: justify;
   -webkit-box-shadow:
     2px 3px 3px #fff inset,
     2px 2px 5px #000;
@@ -236,6 +274,21 @@ a:active {
 #modalReopen:focus {
   -webkit-filter: brightness(0.8);
           filter: brightness(0.8);
+}
+
+#modalReopen:disabled {
+  opacity: 0.1;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 25, 59, 1)), color-stop(rgba(0, 95, 224, 1)), to(rgba(0, 25, 59, 1)));
+  background-image: -o-linear-gradient(left, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  width: 240px;
+  text-align: justify;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
 }
 
 /* ------------ Modal Styling --------------------------- */
@@ -280,8 +333,26 @@ a:active {
     width: 300px;
   }
 
+  .hideNoHits {
+    width: 14em;
+    font-size: 14px;
+  }
+
+  #myLogo {
+    width: 150px;
+  }
+
+  #userSearchWrapper {
+    height: 170px;
+    width: 270px;
+  }
+
   #userInput {
     font-size: 24px;
+  }
+
+  #pixID {
+    font-size: 21px;
   }
 
   #picSource {
@@ -289,10 +360,6 @@ a:active {
   }
 
   #modalTitle {
-    font-size: 21px;
-  }
-
-  #pixID {
     font-size: 21px;
   }
 }
@@ -318,25 +385,23 @@ a:active {
     width: 400px;
   }
 
+  .list-group-item {
+    font-size: 14px;
+  }
+
   #modalReopen {
     margin: 0 auto;
   }
 
-  #userForm {
-    height: 150px;
-  }
-
-  #userInput {
-    font-size: 18px;
+  #userInput,
+  #userChoice {
+    font-size: 16px;
+    width: 250px;
   }
 
   #myLogo {
     width: 180px;
     margin: 0 auto;
-  }
-
-  .list-group-item {
-    font-size: 14px;
   }
 
   #picSource {
@@ -375,5 +440,24 @@ a:active {
 @media all and (max-width: 300px) {
   .photoImage {
     width: 230px;
+  }
+
+  .hideNoHits {
+    width: 14em;
+    font-size: 12px;
+  }
+
+  #userSearchWrapper {
+    width: 220px;
+  }
+
+  #userInput {
+    font-size: 20px;
+    width: 215px;
+  }
+
+  #userChoice {
+    font-size: 14px;
+    width: 210px;
   }
 }
