@@ -1,0 +1,379 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+body {
+  max-width: 1800px;
+  color: black;
+  background-color: #7f868f;
+  background-image: url(../img/Rome_1.png), url(../img/Frankfurt_1_75.png), url(../img/Nymphs_1_75.png);
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+h1,
+h2 {
+  font-family: 'Indie Flower', cursive;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+}
+
+hr {
+  border: 0;
+  margin: 0;
+  height: 7px;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(207, 207, 207, 0.1)), color-stop(rgba(83, 90, 99, 1.0)), to(rgba(207, 207, 207, 0.1)));
+  background-image: -o-linear-gradient(left, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
+  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
+  max-width: 1500px;
+}
+
+a {
+  color: #000fa3;
+  text-decoration: none;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+a:visited {
+  color: #a3003e;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:active {
+  color: #ff0000;
+}
+
+/* -- Flex styling for header --------- */
+
+.navbar {
+  background-color: #212a36;
+  background-image: url(../img/Him_03.png);
+  -webkit-box-shadow: 3px 3px 5px #000;
+          box-shadow: 3px 3px 5px #000;
+  background-size: cover;
+  height: 400px;
+}
+
+.dataLoading {
+  -webkit-filter: opacity(1);
+          filter: opacity(1);
+  height: auto;
+
+  /* this displays the message on top */
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -4.5em;
+  width: 10em;
+  font-family: 'Oswald', sans-serif;
+  font-variant: normal;
+  font-size: 36px;
+  text-align: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 0.2rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #00193b;
+  color: white;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+}
+
+.hideDataLoading {
+  -webkit-filter: opacity(0);
+          filter: opacity(0);
+  height: auto;
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -4.5em;
+  width: 10em;
+  font-family: 'Oswald', sans-serif;
+  font-variant: normal;
+  font-size: 36px;
+  text-align: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 0.2rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #00193b;
+  color: white;
+  -webkit-transition: -webkit-filter 1s ease;
+  transition: -webkit-filter 1s ease;
+  -o-transition: filter 1s ease;
+  transition: filter 1s ease;
+  transition: filter 1s ease, -webkit-filter 1s ease;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    3px 3px 5px #000;
+}
+
+.photoButton {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 1px 1px 2px #000;
+  border-style: solid;
+  padding-top: 0.4rem;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  background: #00193b;
+  height: 160px;
+  width: 280px;
+  margin: 0 auto;
+  color: #fff;
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  background-size: cover;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+}
+
+.photoButton:hover,
+.photoButton:focus {
+  cursor: pointer;
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+/* -- ID styling -------------- */
+
+#myLogo {
+  padding: 0;
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 2px 4px #000;
+          box-shadow: 2px 2px 4px #000;
+}
+
+#userInput {
+  font-size: 36px;
+  font-weight: bolder;
+  font-variant: small-caps;
+  text-shadow: 2px 2px 3px #fff;
+}
+
+#userSearchWrapper {
+  background: rgba(247, 250, 255, 0.5);
+  border-radius: 5px;
+}
+
+#userChoice {
+  border-style: ridge;
+  border-radius: 5px;
+}
+
+#submitButton,
+#modalReopen {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  margin: 20px;
+  width: 120px;
+  color: white;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  -webkit-box-shadow: 2px 2px 5px #000;
+          box-shadow: 2px 2px 5px #000;
+}
+
+#modalReopen {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 25, 59, 1)), color-stop(rgba(0, 95, 224, 1)), to(rgba(0, 25, 59, 1)));
+  background-image: -o-linear-gradient(left, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  width: 240px;
+  color: white;
+  -webkit-box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+          box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
+}
+
+#submitButton:hover,
+#submitButton:focus,
+#modalReopen:hover,
+#modalReopen:focus {
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+/* ------------ Modal Styling --------------------------- */
+
+.modal-dialog {
+  background-color: #43455c;
+  max-width: 700px;
+  text-align: center;
+  -webkit-box-shadow: 2px 2px 5px #01021c;
+          box-shadow: 2px 2px 5px #01021c;
+  border-radius: 8px;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.list-group-item {
+  background: #d5d7eb;
+}
+
+#modalWindow {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 19, 33, 0.9)), to(rgba(174, 176, 209, 0.3)));
+  background-image: -o-linear-gradient(top, rgba(18, 19, 33, 0.9), rgba(174, 176, 209, 0.3));
+  background-image: linear-gradient(to bottom, rgba(18, 19, 33, 0.9), rgba(174, 176, 209, 0.3));
+}
+
+/* --------------- media queries required ---------------- */
+
+@media all and (min-width: 500px) and (max-width: 850px) {
+  .navbar {
+    background-color: #212a36;
+    background-image: url(../img/Him_03.png);
+    -webkit-box-shadow: 3px 3px 5px #000;
+            box-shadow: 3px 3px 5px #000;
+    background-size: cover;
+    height: 250px;
+  }
+
+  .photoButton {
+    margin: 14px;
+    height: 100px;
+    width: 300px;
+  }
+
+  #userInput {
+    font-size: 24px;
+  }
+
+  #picSource {
+    font-size: 21px;
+  }
+
+  #modalTitle {
+    font-size: 21px;
+  }
+
+  #pixID {
+    font-size: 21px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  body {
+    padding: 10px;
+  }
+
+  .navbar {
+    height: 280px;
+  }
+
+  .photoButton {
+    font-size: 14px;
+    margin: 10px;
+    height: 80px;
+    width: 240px;
+    background-size: cover;
+  }
+
+  .photoImage {
+    width: 400px;
+  }
+
+  #modalReopen {
+    margin: 0 auto;
+  }
+
+  #userForm {
+    height: 150px;
+  }
+
+  #userInput {
+    font-size: 18px;
+  }
+
+  #myLogo {
+    width: 180px;
+    margin: 0 auto;
+  }
+
+  .list-group-item {
+    font-size: 14px;
+  }
+
+  #picSource {
+    font-size: 18px;
+  }
+
+  #modalTitle {
+    font-size: 18px;
+  }
+}
+
+@media all and (max-width: 420px) {
+  .photoImage {
+    width: 360px;
+  }
+}
+
+@media all and (max-width: 380px) {
+  .photoImage {
+    width: 325px;
+  }
+}
+
+@media all and (max-width: 365px) {
+  .photoImage {
+    width: 310px;
+  }
+}
+
+@media all and (max-width: 330px) {
+  .photoImage {
+    width: 270px;
+  }
+}
+
+@media all and (max-width: 300px) {
+  .photoImage {
+    width: 230px;
+  }
+}
