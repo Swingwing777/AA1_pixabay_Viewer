@@ -70,7 +70,7 @@ a:active {
   width: 10em;
   font-family: 'Oswald', sans-serif;
   font-variant: normal;
-  font-size: 36px;
+  font-size: 30px;
   text-align: center;
   justify-content: space-around;
   padding-top: 0.2rem;
@@ -97,7 +97,7 @@ a:active {
   width: 10em;
   font-family: 'Oswald', sans-serif;
   font-variant: normal;
-  font-size: 36px;
+  font-size: 30px;
   text-align: center;
   justify-content: space-around;
   padding-top: 0.2rem;
@@ -117,17 +117,13 @@ a:active {
   visibility: hidden;
   height: auto;
   z-index: 1000;
-  position: fixed;
-  top: 40%;
-  left: 48%;
-  margin-top: -10px;
-  margin-left: -4.5em;
   width: 14em;
+  margin: 0 auto;
+  margin-bottom: 10px;
   font-family: 'Oswald', sans-serif;
   font-variant: normal;
-  font-size: 24px;
+  font-size: 16px;
   text-align: center;
-  justify-content: space-around;
   border-style: solid;
   border-width: 1px;
   border-color: black;
@@ -178,6 +174,7 @@ a:active {
   padding: 0;
   border-radius: 5px;
   box-shadow: 2px 2px 4px #000;
+  width: 250px;
 }
 
 #userInput {
@@ -195,6 +192,7 @@ a:active {
 #userChoice {
   border-style: ridge;
   border-radius: 5px;
+  font-size: 16px;
 }
 
 #submitButton,
@@ -204,15 +202,22 @@ a:active {
   border-radius: 5px;
   margin: 20px;
   width: 120px;
+  background-color: #00b530;
   color: white;
   transition: all 1s ease;
   box-shadow: 2px 2px 5px #000;
 }
 
+#submitButton {
+  margin: 0 auto;
+  margin-top: 1em;
+  margin-bottom: 10px;
+}
+
 #modalReopen {
   background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
   width: 240px;
-  color: white;
+  text-align: justify;
   box-shadow:
     2px 3px 3px #fff inset,
     2px 2px 5px #000;
@@ -223,6 +228,16 @@ a:active {
 #modalReopen:hover,
 #modalReopen:focus {
   filter: brightness(0.8);
+}
+
+#modalReopen:disabled {
+  opacity: 0.1;
+  background-image: linear-gradient(to right, rgba(0, 25, 59, 1), rgba(0, 95, 224, 1), rgba(0, 25, 59, 1));
+  width: 240px;
+  text-align: justify;
+  box-shadow:
+    2px 3px 3px #fff inset,
+    2px 2px 5px #000;
 }
 
 /* ------------ Modal Styling --------------------------- */
@@ -261,8 +276,26 @@ a:active {
     width: 300px;
   }
 
+  .hideNoHits {
+    width: 14em;
+    font-size: 14px;
+  }
+
+  #myLogo {
+    width: 150px;
+  }
+
+  #userSearchWrapper {
+    height: 170px;
+    width: 270px;
+  }
+
   #userInput {
     font-size: 24px;
+  }
+
+  #pixID {
+    font-size: 21px;
   }
 
   #picSource {
@@ -270,10 +303,6 @@ a:active {
   }
 
   #modalTitle {
-    font-size: 21px;
-  }
-
-  #pixID {
     font-size: 21px;
   }
 }
@@ -299,25 +328,23 @@ a:active {
     width: 400px;
   }
 
+  .list-group-item {
+    font-size: 14px;
+  }
+
   #modalReopen {
     margin: 0 auto;
   }
 
-  #userForm {
-    height: 150px;
-  }
-
-  #userInput {
-    font-size: 18px;
+  #userInput,
+  #userChoice {
+    font-size: 16px;
+    width: 250px;
   }
 
   #myLogo {
     width: 180px;
     margin: 0 auto;
-  }
-
-  .list-group-item {
-    font-size: 14px;
   }
 
   #picSource {
@@ -357,4 +384,25 @@ a:active {
   .photoImage {
     width: 230px;
   }
+
+  .hideNoHits {
+    width: 14em;
+    font-size: 12px;
+  }
+
+  #userSearchWrapper {
+    width: 220px;
+  }
+
+  #userInput {
+    font-size: 20px;
+    width: 215px;
+  }
+
+  #userChoice {
+    font-size: 14px;
+    width: 210px;
+  }
+
+
 }

@@ -5,7 +5,8 @@ var photoRepository = (function () {
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
 
   var banner1 = $('.dataLoading');
-  var banner2 = $('.hideNoHits')
+  var banner2 = $('.hideNoHits');
+  var buttonReopen = $('#modalReopen');
   var modalContainer = $('.modalHere');
 
   //This adds each photo to photoAlbum (and rebuilds button if cleared by showDetails())
@@ -54,10 +55,12 @@ var photoRepository = (function () {
 
   function showNoMatches(banner2)  {
     banner2.addClass('noHits');
+    buttonReopen.addClass('disabled')
   }
 
   function hideNoMatches(banner2)  {
     banner2.removeClass('noHits');
+    buttonReopen.removeClass('disabled');
   }
 
   // Ajax function - jQuery
@@ -87,8 +90,8 @@ var photoRepository = (function () {
           hideLoadingMessage(banner1);
         });
       } else {
-        photoAlbum = [];
-        $('.row').html('');
+          photoAlbum = [];
+          $('.row').html('');
           hideLoadingMessage(banner1);
           showNoMatches(banner2);
        }
@@ -139,7 +142,7 @@ var photoRepository = (function () {
     var pixIDNum = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
     var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
-    var imgElement = $(`<img style="max-width:700px" class="photoImage" alt="Larger image" src ="${webSize}">`);
+    var imgElement = $(`<img style="max-width:700px height:auto" class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
     var modalClose = $('<button class="btn modal-close" data-dismiss="modal">Close</button>');
 

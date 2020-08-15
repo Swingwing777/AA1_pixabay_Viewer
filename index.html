@@ -20,12 +20,13 @@
   <hr>
   <nav class="navbar navbar-expand-lg d-flex justify-content-between">
     <a href="http://www.sweepback.co.uk" class="navbar-brand">
-      <img src="img/DWHv2.png" class="d-flex justify-content-sm-center" id="myLogo" width="250" alt="Logo of D W H Studio">
+      <img src="img/DWHv2.png" class="d-flex justify-content-sm-center" id="myLogo" alt="Logo of D W H Studio">
     </a>
     <div class="pr-3 my-2 d-flex flex-column justify-content-center" id="userSearchWrapper">
       <label for="userChoice" id="userInput">Enter search words: </label>
-      <input class="mx-2 w-100" id="userChoice" type="text" placeholder="eg landscape+monochrome" aria-label="eg landscape+monochrome">
+      <input class="mx-2 w-240" id="userChoice" type="text" placeholder="eg landscape+monochrome" aria-label="eg landscape+monochrome">
       <button class="btn btn-sm btn-success" id="submitButton" type="button">Search</button>
+      <p class="hideNoHits">Sorry, no matches. Please try again</p>
     </div>
   </nav>
   <hr>
@@ -38,13 +39,13 @@
    </h1>
    <button
       type="button"
-      class="btn d-flex justify-content-sm-center"
+      class="btn d-none d-sm-block d-flex justify-content-sm-center"
       id="modalReopen"
       data-toggle="modal"
       data-target="#photoModal">Return to Last Selection
     </button>
     <p class="dataLoading">Please wait - Data Loading</p>
-    <p class="hideNoHits">Sorry, no matches. Please try again</p>
+
     <div class="container-fluid">
       <div class="row justify-content-center p"></div>
     </div>
