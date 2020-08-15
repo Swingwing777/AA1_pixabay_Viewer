@@ -21,7 +21,7 @@ hr {
   border: 0;
   margin: 0;
   height: 7px;
-  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1.0), rgba(207, 207, 207, 0.1));
+  background-image: linear-gradient(to right, rgba(207, 207, 207, 0.1), rgba(83, 90, 99, 1), rgba(207, 207, 207, 0.1));
   max-width: 1500px;
 }
 
@@ -43,7 +43,7 @@ a:focus {
 }
 
 a:active {
-  color: #ff0000;
+  color: #f00;
 }
 
 /* -- Flex styling for header --------- */
