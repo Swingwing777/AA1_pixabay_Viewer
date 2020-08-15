@@ -76,8 +76,8 @@ var photoRepository = (function () {
         });
       } else {
           hideLoadingMessage(banner);
-          alert('Sorry - no photographs meet your search requirements.  Please try again');
-      }
+          alert('Sorry - none found. Please try different words');
+       }
     });
   }
 
