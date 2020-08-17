@@ -2,6 +2,8 @@
 
 var photoRepository = (function () {
   var photoAlbum = [];
+
+  //API key really needs to be stored separately from this file.
   var API_KEY = '17795524-3cd93801424773114b97b5b02';
 
   var banner1 = $('.dataLoading');
@@ -9,18 +11,18 @@ var photoRepository = (function () {
   var buttonReopen = $('#modalReopen');
   var modalContainer = $('.modalHere');
 
-  //This adds each photo to photoAlbum (and rebuilds button if cleared by showDetails())
+  // add() adds each photo to photoAlbum (and rebuilds button if cleared by showDetails())
   function add(photo) {
     photoAlbum.push(photo);
     addListItem(photo);
   }
 
-  //This returns completed photoAlbum
+  // getAll() returns completed photoAlbum
   function getAll() {
     return photoAlbum;
   }
 
-  // add Photo buttons
+  // addListItem() adds Photo buttons
 
   function addListItem(photo){
     var photoRow = $('.row')
@@ -43,27 +45,29 @@ var photoRepository = (function () {
     buttonListen(photoButton, photo);
   }
 
-  // Loading and No Hits messages
-
+  // showLoadingMessage() shows loading banner
   function showLoadingMessage(banner1) {
     banner1.removeClass('hideDataLoading');
   }
 
+  // hideLoadingMessage() hides loading banner
   function hideLoadingMessage(banner1) {
     banner1.addClass('hideDataLoading');
   }
 
+  // showNoMatches() shows 'No Matches' banner
   function showNoMatches(banner2)  {
     banner2.addClass('noHits');
     buttonReopen.addClass('disabled')
   }
 
+  // hideNoMatches() hides 'No Matches' banner
   function hideNoMatches(banner2)  {
     banner2.removeClass('noHits');
     buttonReopen.removeClass('disabled');
   }
 
-  // Ajax function - jQuery
+  // loadList() requests data from API.  If no userChoice entered, default is 'landscape+monochrome'
   function loadList(userChoice = 'landscape+monochrome') {
     showLoadingMessage(banner1);
     hideNoMatches(banner2);
@@ -74,6 +78,9 @@ var photoRepository = (function () {
     return $.ajax(apiUrlChoice, {
       dataType: 'json',
     }).then(function (data){
+
+      // if (parseInt()) conditional needed to ensure the 'else' branch works correctly for no hits.
+      // if (data.hits() alternative method does not correctly (or ever trigger) 'else' branch.
       if (parseInt(data.totalHits) > 0)  {
         photoAlbum = [];
         $('.row').html('');
@@ -114,14 +121,14 @@ var photoRepository = (function () {
   }
 
 
-  //Function needed to clean out modal between consecutive showDetails requests
+  // hideModal() clears modal between consecutive showDetails(photo) requests
   function hideModal() {
     modalContainer.removeClass('is-visible');
     modalContainer.empty();
   }
 
-//creates event listener for each button.  Cannot use Bootstrap built-in as loads all with addListitem
-
+/* buttonListen() creates event listener for each button.
+Cannot use Bootstrap built-in listener as loads all buttons simultaneously with addListitem() */
   function buttonListen(button, photo) {
     button.on('click', function () {
       showDetails(photo);
@@ -164,12 +171,14 @@ var photoRepository = (function () {
     modalContainer.append(modalFade);
   }
 
+  // Event listener for Submit button
   $('#submitButton').on('click', function (e) {
     e.preventDefault(); //stop default action of the button to avoid page reload
     var userChoice = $('#userChoice').val();
     loadList(userChoice);
   });
 
+  // Event listener for 'Enter' key to execute user search parameters
   $(window).on('keydown', function (e) {
     if (e.key === 'Enter') {
     e.preventDefault(); //stop default action of the button to avoid page reload
@@ -192,9 +201,9 @@ var photoRepository = (function () {
 // ------------- Functions external to IIFE -----------------------
 
 photoRepository.loadList().then(function() {
-  // this calls the data from API and then calls getAll
+  // loadList() calls the data from API and .then calls getAll()
   photoRepository.getAll().forEach(function(photo){
-    //  getAll returns photo, followed by forEach loop, add to photoList array
+    //  getAll() returns photo, followed by forEach loop to addListItem to photoList array
     photoRepository.addListItem(photo);
   });
 });
