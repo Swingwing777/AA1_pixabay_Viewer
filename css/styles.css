@@ -131,8 +131,8 @@ a:active {
   background: #940000;
   color: white;
   box-shadow:
-    2px 3px 3px #fff inset,
-    3px 3px 5px #000;
+    1px 1px 2px #fff inset,
+    2px 2px 3px #000;
 }
 
 .noHits {
@@ -284,6 +284,15 @@ a:active {
     font-size: 14px;
   }
 
+  .dataLoading,
+  .hideDataLoading {
+    font-size: 14px;
+    text-align: center;
+    box-shadow:
+      1px 1px 2px #fff inset,
+      2px 2px 3px #000;
+  }
+
   #myLogo {
     width: 150px;
   }
@@ -316,6 +325,9 @@ a:active {
   }
 
   .navbar {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     height: 280px;
   }
 
@@ -335,14 +347,30 @@ a:active {
     font-size: 14px;
   }
 
+  .dataLoading,
+  .hideDataLoading {
+    top: 30%;
+    left: 47%;
+    font-size: 20px;
+    justify-content: space-around;
+    padding-top: 0.2rem;
+    box-shadow:
+      1px 1px 2px #fff inset,
+      2px 2px 3px #000;
+  }
+
   #modalReopen {
     margin: 0 auto;
   }
 
-  #userInput,
-  #userChoice {
+  #userInput {
     font-size: 16px;
-    width: 250px;
+    width: 200px;
+  }
+
+  #userChoice {
+    font-size: 14px;
+    width: 200px;
   }
 
   #myLogo {
@@ -398,12 +426,12 @@ a:active {
   }
 
   #userInput {
-    font-size: 20px;
+    font-size: 16px;
     width: 215px;
   }
 
   #userChoice {
-    font-size: 14px;
-    width: 210px;
+    font-size: 12px;
+    width: 190px;
   }
 }
