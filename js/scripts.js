@@ -149,16 +149,18 @@ Cannot use Bootstrap built-in listener as loads all buttons simultaneously with 
     var pixIDNum = $(`<h3 class="list-group-item" style="color:#0a0091">Pixabay ID: ${pixID}</h3>`);
     var imageLink = $(`<a class="list-group-item" href="${largeImage}" target="_blank">View fullsize image</a>`);
     var pageLink = $(`<a class="list-group-item" href="${pageURL}" target="_blank">Leave comment</a>`);
-    var imgElement = $(`<img style="" class="photoImage w-100" alt="Larger image" src ="${webSize}">`);
+    var imgContainer = $('<div class="imgContainer list-group-item"></div>')
+    var imgElement = $(`<img class="photoImage" alt="Larger image" src ="${webSize}">`);
     var modalFooter = $('<div class="modal-footer"></div>');
     var modalClose = $('<button class="btn modal-close" data-dismiss="modal">Close</button>');
 
     modalFooter.append(modalClose);
+    imgContainer.append(imgElement)
     modalBody
       .append(pixIDNum)
       .append(imageLink)
       .append(pageLink)
-      .append(imgElement);
+      .append(imgContainer);
     modalHeader
       .append(modalTitle)
       .append(modalCloseSymbol);

@@ -307,6 +307,17 @@ a:active {
   background: #d5d7eb;
 }
 
+.imgContainer {
+
+}
+
+.photoImage {
+  -o-object-fit: contain;
+     object-fit: contain;
+  max-width: 100%;
+  height: auto;
+}
+
 #modalWindow {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 19, 33, 0.9)), to(rgba(174, 176, 209, 0.3)));
   background-image: -o-linear-gradient(top, rgba(18, 19, 33, 0.9), rgba(174, 176, 209, 0.3));
@@ -329,11 +340,6 @@ a:active {
     margin: 14px;
     height: 200px;
     width: 400px;
-  }
-
-  .photoImage {
-    max-width: 210px;
-    max-height: 500px;
   }
 
   .hideNoHits {
@@ -404,10 +410,6 @@ a:active {
     background-size: contain;
   }
 
-  .photoImage {
-    width: 400px;
-  }
-
   .list-group-item {
     font-size: 14px;
   }
@@ -456,35 +458,7 @@ a:active {
   }
 }
 
-@media all and (max-width: 420px) {
-  .photoImage {
-    width: 360px;
-  }
-}
-
-@media all and (max-width: 380px) {
-  .photoImage {
-    width: 325px;
-  }
-}
-
-@media all and (max-width: 365px) {
-  .photoImage {
-    width: 310px;
-  }
-}
-
-@media all and (max-width: 330px) {
-  .photoImage {
-    max-width: 270px;
-  }
-}
-
 @media all and (max-width: 300px) {
-  .photoImage {
-    max-width: 250px;
-  }
-
   .hideNoHits {
     width: 14em;
     font-size: 12px;
