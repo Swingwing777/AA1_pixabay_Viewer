@@ -3,8 +3,8 @@
 var photoRepository = (function () {
   var photoAlbum = [];
 
-  //API key needs to be stored separately from this file.
-  var API_KEY = 'get_API_KEY_pixaBay.com' // Put your API key here as string value (get it at http://pixaBay.com);
+  //API key really needs to be stored separately from this file.
+  var API_KEY = 'GET YOUR KEY pixabay.com';
 
   var banner1 = $('.dataLoading');
   var banner2 = $('.hideNoHits');
